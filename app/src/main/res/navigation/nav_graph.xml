@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navHomeFragment">
+    app:startDestination="@id/home">
 
     <fragment
-        android:id="@+id/navHomeFragment"
+        android:id="@+id/home"
         android:name="com.example.appseries.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_favoritesFragment"
-            app:destination="@id/navFavoritesFragment" />
+            app:destination="@id/favorites" />
     </fragment>
 
     <fragment
-        android:id="@+id/navFavoritesFragment"
+        android:id="@+id/favorites"
         android:name="com.example.appseries.ui.fragments.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_favoritesFragment_to_perfilFragment"
-            app:destination="@id/navPerfilFragment" />
+            app:destination="@id/perfil" />
     </fragment>
 
     <fragment
-        android:id="@+id/navPerfilFragment"
+        android:id="@+id/perfil"
         android:name="com.example.appseries.ui.fragments.PerfilFragment"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />

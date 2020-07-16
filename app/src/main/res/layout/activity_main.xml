@@ -26,8 +26,7 @@
             android:layout_alignParentBottom="true"
             android:background="#FFFFFF"
             android:elevation="10dp"
-            app:menu="@menu/bottom_navigation_menu">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-</RelativeLayout>
+            app:menu="@menu/bottom_navigation_menu" />
+    </RelativeLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
