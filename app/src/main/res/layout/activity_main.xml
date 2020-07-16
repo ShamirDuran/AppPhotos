@@ -11,23 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
+        <FrameLayout
             android:id="@+id/mainFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/nav_menu"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph"/>
+            app:navGraph="@navigation/nav_graph" />
 
-        <com.ismaeldivita.chipnavigation.ChipNavigationBar
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_menu"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:background="#FFFFFF"
             android:elevation="10dp"
-            app:cnb_menuResource="@menu/bottom_navigation_menu" />
-    </RelativeLayout>
+            app:menu="@menu/bottom_navigation_menu">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+</RelativeLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
