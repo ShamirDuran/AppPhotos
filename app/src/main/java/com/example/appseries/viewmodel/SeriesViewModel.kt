@@ -1,32 +1,45 @@
 package com.example.appseries.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.appseries.model.Serie
+import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
+import java.lang.Exception
 
 class SeriesViewModel : ViewModel() {
 
-    private val seriesService = SeriesServices()
-    val listSeries = MutableLiveData<List<Serie>>()
+    private val db = SeriesServices()
+    private val listSeries = MutableLiveData<List<Serie>>()
     private val listSeriesFav: MutableLiveData<List<Serie>> = MutableLiveData<List<Serie>>()
 
     init {
         getSeries()
     }
 
-    fun setListSeries(listSeries: List<Serie>) {
-        this.listSeries.value = listSeries
-    }
-
-    fun setListSeriesFav(listSeriesFav: List<Serie>) {
-        this.listSeriesFav.value = listSeriesFav
-    }
-
     private fun getSeries() {
-        setListSeries(seriesService.getSeriesService())
-        setListSeriesFav(seriesService.getSeriesFavService())
+        db.getSeries(object : Callback<List<Serie>> {
+            override fun onSuccess(result: List<Serie>?) {
+                listSeries.value = result
+            }
+
+            override fun onFailed(exception: Exception) {
+                Log.w("SerieViewModel: ", "error al usar SerieService", exception)
+            }
+
+        })
+
+        db.getSeriesFav(object : Callback<List<Serie>> {
+            override fun onSuccess(result: List<Serie>?) {
+                listSeriesFav.value = result
+            }
+
+            override fun onFailed(exception: Exception) {
+                Log.w("SerieViewModel: ", "error al usar SerieServiceFav", exception)
+            }
+        })
     }
 
     fun getLiveDataListSeries(): LiveData<List<Serie>> {

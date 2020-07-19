@@ -56,22 +56,5 @@ class HomeFragment : Fragment(), HomeListener {
     override fun onSerieClicked(serie: Serie, position: Int) {
         val bundle = bundleOf("serie" to serie)
         findNavController().navigate(R.id.serieDetailFragmentDialog, bundle)
-
-        val newserie = Serie(
-            "Shingeki no kyojin",
-            "La historia nos traslada a un mundo en el que la humanidad estuvo a punto de ser exterminada " +
-                    "cientos de años atrás por los gigantes. Los gigantes son enormes, parecen no ser inteligentes" +
-                    " y devoran seres humanos. Lo peor es que parece que lo hacen por placer y no por alimentarse. " +
-                    "Una pequeña parte de la humanidad ha conseguido sobrevivir protegiéndose en una ciudad con unos " +
-                    "altísimos muros, más altos que el mayor de los gigantes. La ciudad vive su vida tranquila, y hace" +
-                    " más de 100 años que ningún gigante aparece por allí. Eren y su hermana adoptiva Mikasa son " +
-                    "todavía unos adolescentes cuando ven algo horroroso: un gigante mucho mayor que todos los que " +
-                    "la humanidad había conocido hasta el momento está destruyendo los muros de la ciudad. No pasa mucho" +
-                    " tiempo hasta que los gigantes entran por el hueco abierto en el muro y comienzan a devorar a la gente.",
-            "https://www.latercera.com/resizer/X8GDI9YjD0qVHEMmPrGaEnGEYz0=/900x600/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/CXE25YCTW5BWZFU2RV5AFJVZKE.jpg",
-            true
-        )
-
-
     }
 }
