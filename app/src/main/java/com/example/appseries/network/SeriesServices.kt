@@ -22,7 +22,6 @@ class SeriesServices {
             .addOnSuccessListener { result ->
                 for (doc in result) {
                     val list = result.toObjects(Serie::class.java)
-                    Log.d("abcd: ", list.javaClass.name)
                     callback!!.onSuccess(list)
                     break
                 }
@@ -38,11 +37,6 @@ class SeriesServices {
             .whereEqualTo("fav", true)
             .get()
             .addOnSuccessListener { result ->
-
-                for (document in result) {
-                    Log.d("Datos fav desde fir: ", "${document.id} => ${document.data}")
-                }
-
                 for (doc in result) {
                     val list = result.toObjects(Serie::class.java)
                     callback!!.onSuccess(list)
