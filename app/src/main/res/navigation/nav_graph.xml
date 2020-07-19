@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_favoritesFragment"
             app:destination="@id/favorites" />
+        <action
+            android:id="@+id/action_home_to_serieDetailFragmentDialog"
+            app:destination="@id/serieDetailFragmentDialog" />
     </fragment>
 
     <fragment
@@ -30,4 +33,10 @@
         android:name="com.example.appseries.ui.fragments.PerfilFragment"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
+
+    <dialog
+        android:id="@+id/serieDetailFragmentDialog"
+        android:name="com.example.appseries.ui.fragments.SeriesDetailDialogFragment"
+        android:label="SerieDetailFragmentDialog"
+        tools:layout="@layout/fragment_series_detail_dialog"/>
 </navigation>

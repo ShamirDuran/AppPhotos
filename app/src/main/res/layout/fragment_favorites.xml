@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.FavoritesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/navFav"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="favoritos" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <Toolbar
+            android:id="@+id/toolbarFav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/fav">
+
+            <TextView
+                android:id="@+id/tvtbFav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tbFavorites"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFav"
+        android:layout_below="@id/navFav"
+        android:layout_width="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:visibility="visible"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvHayAlgo"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:visibility="invisible"
+        android:textSize="30sp"
+        android:textColor="@color/fav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No hay series favoritas!" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

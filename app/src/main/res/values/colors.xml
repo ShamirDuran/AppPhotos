@@ -4,8 +4,16 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="rosado">#CD758A</color>
-    <color name="home">#6ab04c</color>
-    <color name="favoritos">#d63031</color>
+    <color name="home">#009688</color>
+    <color name="fav">#E91E63</color>
     <color name="perfil">#6200EE</color>
+
+
+    <color name="etiquetaNombreVerde">#8A009688</color>
+    <color name="etiquetaNombreGris">#C4869392</color>
+    <color name="etiquetaNombre">#85E91E63</color>
+
+    <color name="colorTexto">#4A3B40</color>
+
 
 </resources>
