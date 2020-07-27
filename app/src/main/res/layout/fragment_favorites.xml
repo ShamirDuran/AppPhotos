@@ -6,30 +6,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.FavoritesFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/navFav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/navFav"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <Toolbar
-            android:id="@+id/toolbarFav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/fav">
+<!--        <Toolbar-->
+<!--            android:id="@+id/toolbarFav"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/fav">-->
 
-            <TextView
-                android:id="@+id/tvtbFav"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tbFavorites"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-        </Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/tvtbFav"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/tbFavorites"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:textSize="20sp" />-->
+<!--        </Toolbar>-->
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFav"
-        android:layout_below="@id/navFav"
         android:layout_width="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:visibility="visible"

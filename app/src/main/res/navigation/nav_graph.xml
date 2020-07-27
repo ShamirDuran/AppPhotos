@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_home_to_serieDetailFragmentDialog"
             app:destination="@id/serieDetailFragmentDialog" />
+        <action
+            android:id="@+id/action_home_to_addSerieDialogFragment"
+            app:destination="@id/addSerieDialogFragment" />
     </fragment>
 
     <fragment
@@ -38,5 +41,21 @@
         android:id="@+id/serieDetailFragmentDialog"
         android:name="com.example.appseries.ui.fragments.SeriesDetailDialogFragment"
         android:label="SerieDetailFragmentDialog"
-        tools:layout="@layout/fragment_series_detail_dialog"/>
+        tools:layout="@layout/fragment_series_detail_dialog">
+        <action
+            android:id="@+id/action_serieDetailFragmentDialog_to_editSerieDialogFragment"
+            app:destination="@id/editSerieDialogFragment" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/addSerieDialogFragment"
+        android:name="com.example.appseries.ui.fragments.AddSerieDialogFragment"
+        android:label="AddSerieDialogFragment"
+        tools:layout="@layout/fragment_add_serie_dialog"/>
+
+    <dialog
+        android:id="@+id/editSerieDialogFragment"
+        android:name="com.example.appseries.ui.fragments.EditSerieDialogFragment"
+        android:label="EditSerieDialogFragment"
+        tools:layout="@layout/fragment_edit_serie_dialog"/>
 </navigation>

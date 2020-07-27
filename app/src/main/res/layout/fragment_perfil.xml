@@ -7,26 +7,26 @@
     android:orientation="vertical"
     tools:context=".ui.fragments.PerfilFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/nvPerfil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/nvPerfil"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <Toolbar
-            android:id="@+id/toolbarPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/perfil">
+<!--        <Toolbar-->
+<!--            android:id="@+id/toolbarPerfil"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/perfil">-->
 
-            <TextView
-                android:id="@+id/tvtbPerfil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tbPerfil"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-        </Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/tvtbPerfil"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/tbPerfil"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:textSize="20sp" />-->
+<!--        </Toolbar>-->
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
 
     <FrameLayout
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"

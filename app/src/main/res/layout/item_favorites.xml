@@ -39,7 +39,7 @@
                     android:textSize="@dimen/sizeTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan"
+                    android:text="Titulo de la serie"
                     android:textColor="@color/fav"
                     android:textStyle="bold" />
 
@@ -49,17 +49,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
-                    android:text="La comedia romántica gira en torno a un
-                        estudiante de instituto bastante antisocial llamado
-                        Hachiman Hikigaya y que tiene una distorsionada visión
-                        de la vida, aparte de no tener amigos ni mucho menos novia.
-                        Cuando ve a sus compañeros de clase hablando alegremente de
-                        sus vidas adolescentes, él murmura que son todos una panda de
-                        mentirosos. Cuando le preguntan por sus sueños para el futuro,
-                        su respuesta es: “no trabajar”. Un profesor sin embargo consigue
-                        enrolar a Hachiman en el club de voluntariado, al que resulta
-                        que está también apuntada la chica más guapa del instituto,
-                        Yukino Yukinoshita."
+                    android:text="Descripcion de la serie"
                     android:textColor="@color/colorTexto" />
             </LinearLayout>
         </LinearLayout>
