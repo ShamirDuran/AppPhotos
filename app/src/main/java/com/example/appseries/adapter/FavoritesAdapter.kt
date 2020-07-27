@@ -28,7 +28,10 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
         val serieFav = listSeriesFav[position]
         holder.nombreSerieFav.text = serieFav.nombre
         holder.descSerieFav.text = serieFav.desc
-        Picasso.get().load(serieFav.imageUrl).into(holder.imagenSerieFav)
+
+        if (serieFav.imageUrl != ""){
+            Picasso.get().load(serieFav.imageUrl).into(holder.imagenSerieFav)
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

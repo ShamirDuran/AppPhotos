@@ -3,11 +3,9 @@ package com.example.appseries.ui.fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,15 +15,18 @@ import com.example.appseries.R
 import com.example.appseries.model.Serie
 import com.example.appseries.network.SeriesServices
 import com.example.appseries.network.StorageServices
-
 import kotlinx.android.synthetic.main.fragment_add_serie_dialog.*
 import java.util.*
 
 class AddSerieDialogFragment : DialogFragment() {
 
-    val db = SeriesServices()
-    val storageServ = StorageServices()
-    var selectedPhotoUri: Uri? = null
+    private val db = SeriesServices()
+    private val storageServ = StorageServices()
+    private var selectedPhotoUri: Uri? = null
+    private var fbimagenUrl: String = ""
+
+    private val filename = UUID.randomUUID().toString()
+    private val idSerie = UUID.randomUUID().toString()
 
     override fun onStart() {
         super.onStart()
@@ -38,8 +39,7 @@ class AddSerieDialogFragment : DialogFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_serie_dialog, container, false)
@@ -54,28 +54,28 @@ class AddSerieDialogFragment : DialogFragment() {
             dismiss()
         }
 
-        val filename = UUID.randomUUID().toString()
-        val idSerie = UUID.randomUUID().toString()
-
         btAddSerie.setOnClickListener {
-            var isFav: Boolean = false
+            var isFav = false
             if (cbFavSerie.isChecked) isFav = true
-
-            // Add validation for add form fields
-
-            val urlImagen: String = storageServ.uploadImageToFirebase(filename, selectedPhotoUri)
 
             val serie = Serie(
                 idSerie,
-                tiNombreSerie.editText?.text.toString(),
-                tiDescripcionSerie.editText?.text.toString(),
+                "s1",
+                "s2",
                 filename,
-                urlImagen,
+                "",
                 isFav
             )
+            storageServ.uploadImageToFirebase(filename, selectedPhotoUri, serie)
 
-            db.addSerie(serie)
-
+//            val serie = Serie(
+//                idSerie,
+//                tiNombreSerie.editText?.text.toString(),
+//                tiDescripcionSerie.editText?.text.toString(),
+//                filename,
+//                storageServ.uploadImageToFirebase(filename,selectedPhotoUri),
+//                isFav
+//            )
             dismiss()
         }
 
@@ -84,6 +84,18 @@ class AddSerieDialogFragment : DialogFragment() {
             intent.type = "image/*"
             startActivityForResult(intent, 0)
         }
+
+//        btUploadImage.setOnClickListener {
+//            storageServ.uploadImageToFirebase(filename,selectedPhotoUri, object: RealtimeDataListener<String> {
+//                override fun onDataChange(updatedData: String) {
+//                    Log.d("StorageServices", "Url de la imagen $updatedData")
+//                }
+//
+//                override fun onError(exception: Exception) {
+//                    Log.w("StorageServices", "Error url imagne", exception)
+//                }
+//            })
+//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

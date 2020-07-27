@@ -35,7 +35,10 @@ class HomeAdapter(val homeListener: HomeListener) : RecyclerView.Adapter<HomeAda
 //            .load(serie.imageUrl)
 //            .into(holder.imagen)
 
-        Picasso.get().load(serie.imageUrl).into(holder.imagen)
+        if (serie.imageUrl != ""){
+            Picasso.get().load(serie.imageUrl).into(holder.imagen)
+        }
+
         holder.nombre.text = serie.nombre
 
         holder.itemView.setOnClickListener{

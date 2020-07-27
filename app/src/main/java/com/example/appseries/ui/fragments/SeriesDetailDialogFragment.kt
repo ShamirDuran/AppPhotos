@@ -42,24 +42,19 @@ class SeriesDetailDialogFragment : DialogFragment() {
 
         tvNombreSerieDialog.text = serie.nombre
         tvDescSerieDialog.text = serie.desc
-        Picasso.get().load(serie.imageUrl).into(ivImagenSerieDialog)
 
-        btEditSerie.setOnClickListener() {
+        if (serie.imageUrl != "") {
+            Picasso.get().load(serie.imageUrl).into(ivImagenSerieDialog)
+        }
+
+        btEditSerie.setOnClickListener {
             onEditSerieClicked(serie)
         }
     }
 
-    fun onEditSerieClicked(serie: Serie) {
+    private fun onEditSerieClicked(serie: Serie) {
         val bundle = bundleOf("serie" to serie)
         findNavController().navigate(R.id.editSerieDialogFragment, bundle)
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//
-//        dialog?.window?.setLayout(
-//            ViewGroup.LayoutParams.MATCH_PARENT,
-//            ViewGroup.LayoutParams.MATCH_PARENT
-//        )
-//    }
 }

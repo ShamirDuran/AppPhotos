@@ -10,8 +10,8 @@ const val TAG = "SeriesService"
 const val SERIES_COLLECTION_NAME = "series"
 
 class SeriesServices {
-    val db = FirebaseFirestore.getInstance()
-    val settins = FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true)
+    private val db = FirebaseFirestore.getInstance()
+    private val settins = FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true)
         .build() // Habilita la persistencia de datos para el offline
 
     init {
@@ -51,16 +51,16 @@ class SeriesServices {
     }
 
     fun addSerie(serie: Serie) {
-
         val serieAdd = hashMapOf(
+            "idSerie" to serie.idSerie,
             "nombre" to serie.nombre,
-            "imageUrl" to serie.imageUrl,
-            "imageId" to serie.imageId,
             "desc" to serie.desc,
+            "imageId" to serie.imageId,
+            "imageUrl" to serie.imageUrl,
             "fav" to serie.fav
         )
 
-        db.collection(SERIES_COLLECTION_NAME).document(serie.getSerieDocumentId()).set(serieAdd)
+        db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie).set(serieAdd)
             .addOnFailureListener {
                 Log.d(TAG, "Agregado correctamente")
             }
@@ -82,23 +82,31 @@ class SeriesServices {
                 listener.onDataChange(lista)
             }
         }
-
     }
 
     fun updateSeries(serie: Serie) {
         val serieEdit = hashMapOf(
+            "idSerie" to serie.idSerie,
             "nombre" to serie.nombre,
-            "imageUrl" to serie.imageUrl,
-            "imageId" to serie.imageId,
             "desc" to serie.desc,
+            "imageId" to serie.imageId,
+            "imageUrl" to serie.imageUrl,
             "fav" to serie.fav
         )
-        db.collection(SERIES_COLLECTION_NAME).document(serie.getSerieDocumentId())
+
+        Log.d("SeriesServices", "id ${serie.getSerieDocumentId()}")
+        Log.d("SeriesServices", "nombre ${serie.nombre}")
+        Log.d("SeriesServices", "desc ${serie.desc}")
+        Log.d("SeriesServices", "imageid ${serie.getSerieImageId()}")
+        Log.d("SeriesServices", "imageurl ${serie.imageUrl}")
+        Log.d("SeriesServices", "fav ${serie.fav}")
+
+        db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie)
             .update(serieEdit)
     }
 
     fun deleteSerie(serie:Serie) {
-        db.collection(SERIES_COLLECTION_NAME).document(serie.getSerieDocumentId())
+        db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie)
             .delete()
     }
 }

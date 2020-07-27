@@ -1,7 +1,6 @@
 package com.example.appseries.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_edit_serie_dialog.*
 
 class EditSerieDialogFragment : DialogFragment() {
 
-    val db = SeriesServices()
+    private val db = SeriesServices()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,18 +39,13 @@ class EditSerieDialogFragment : DialogFragment() {
         val serie = arguments?.getSerializable("serie") as Serie
 
         tieTituloSerie.setText(serie.nombre)
-        tieImageSerie.setText(serie.imageUrl)
         tieDescSerie.setText(serie.desc)
-
         if (serie.fav) cbFavSerieEdit.isChecked = true
 
         btSaveEditSerie.setOnClickListener {
-
             serie.nombre = tieTituloSerie.text.toString()
             serie.desc = tieDescSerie.text.toString()
-            serie.imageUrl = tieImageSerie.text.toString()
             serie.fav = cbFavSerieEdit.isChecked
-
             db.updateSeries(serie)
             dismiss()
         }
