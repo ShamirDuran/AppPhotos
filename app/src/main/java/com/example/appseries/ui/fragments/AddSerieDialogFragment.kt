@@ -55,19 +55,27 @@ class AddSerieDialogFragment : DialogFragment() {
         }
 
         val filename = UUID.randomUUID().toString()
+        val idSerie = UUID.randomUUID().toString()
 
         btAddSerie.setOnClickListener {
             var isFav: Boolean = false
             if (cbFavSerie.isChecked) isFav = true
 
+            // Add validation for add form fields
+
+            val urlImagen: String = storageServ.uploadImageToFirebase(filename, selectedPhotoUri)
+
             val serie = Serie(
+                idSerie,
                 tiNombreSerie.editText?.text.toString(),
                 tiDescripcionSerie.editText?.text.toString(),
-                tiImageUrlSerie.editText?.text.toString(),
+                filename,
+                urlImagen,
                 isFav
             )
 
             db.addSerie(serie)
+
             dismiss()
         }
 
@@ -76,13 +84,7 @@ class AddSerieDialogFragment : DialogFragment() {
             intent.type = "image/*"
             startActivityForResult(intent, 0)
         }
-
-        btUploadImage.setOnClickListener {
-            storageServ.uploadImageToFirebase(filename, selectedPhotoUri)
-        }
     }
-
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

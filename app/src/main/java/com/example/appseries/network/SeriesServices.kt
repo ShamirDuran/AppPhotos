@@ -55,11 +55,12 @@ class SeriesServices {
         val serieAdd = hashMapOf(
             "nombre" to serie.nombre,
             "imageUrl" to serie.imageUrl,
+            "imageId" to serie.imageId,
             "desc" to serie.desc,
             "fav" to serie.fav
         )
 
-        db.collection(SERIES_COLLECTION_NAME).add(serieAdd)
+        db.collection(SERIES_COLLECTION_NAME).document(serie.getSerieDocumentId()).set(serieAdd)
             .addOnFailureListener {
                 Log.d(TAG, "Agregado correctamente")
             }
@@ -88,6 +89,7 @@ class SeriesServices {
         val serieEdit = hashMapOf(
             "nombre" to serie.nombre,
             "imageUrl" to serie.imageUrl,
+            "imageId" to serie.imageId,
             "desc" to serie.desc,
             "fav" to serie.fav
         )
