@@ -1,17 +1,17 @@
 package com.example.appseries.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.example.appseries.R
 import com.example.appseries.model.Serie
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_series_detail_dialog.*
-import kotlinx.android.synthetic.main.item_favorites.*
 
 
 class SeriesDetailDialogFragment : DialogFragment() {
@@ -32,8 +32,9 @@ class SeriesDetailDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbarSeriesDialog.navigationIcon = ContextCompat.getDrawable(view.context, R.drawable.ic_close)
-        toolbarSeriesDialog.setNavigationOnClickListener(){
+        toolbarSeriesDialog.navigationIcon =
+            ContextCompat.getDrawable(view.context, R.drawable.ic_close)
+        toolbarSeriesDialog.setNavigationOnClickListener {
             dismiss()
         }
 
@@ -42,6 +43,15 @@ class SeriesDetailDialogFragment : DialogFragment() {
         tvNombreSerieDialog.text = serie.nombre
         tvDescSerieDialog.text = serie.desc
         Picasso.get().load(serie.imageUrl).into(ivImagenSerieDialog)
+
+        btEditSerie.setOnClickListener() {
+            onEditSerieClicked(serie)
+        }
+    }
+
+    fun onEditSerieClicked(serie: Serie) {
+        val bundle = bundleOf("serie" to serie)
+        findNavController().navigate(R.id.editSerieDialogFragment, bundle)
     }
 
 //    override fun onStart() {
