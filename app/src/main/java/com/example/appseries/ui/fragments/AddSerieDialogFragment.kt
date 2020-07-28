@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.appseries.R
@@ -58,25 +59,25 @@ class AddSerieDialogFragment : DialogFragment() {
             var isFav = false
             if (cbFavSerie.isChecked) isFav = true
 
-            val serie = Serie(
-                idSerie,
-                "s1",
-                "s2",
-                filename,
-                "",
-                isFav
-            )
-            storageServ.uploadImageToFirebase(filename, selectedPhotoUri, serie)
+            if (tiNombreSerie.editText?.text.toString() != "" && tiDescripcionSerie.editText?.text.toString() != ""){
+                if (selectedPhotoUri != null) {
+                    val serie = Serie(
+                        idSerie,
+                        tiNombreSerie.editText?.text.toString(),
+                        tiDescripcionSerie.editText?.text.toString(),
+                        filename,
+                        "",
+                        isFav
+                    )
+                    storageServ.uploadImageToFirebase(filename, selectedPhotoUri, serie)
 
-//            val serie = Serie(
-//                idSerie,
-//                tiNombreSerie.editText?.text.toString(),
-//                tiDescripcionSerie.editText?.text.toString(),
-//                filename,
-//                storageServ.uploadImageToFirebase(filename,selectedPhotoUri),
-//                isFav
-//            )
-            dismiss()
+                    dismiss()
+                } else {
+                    Toast.makeText(context, "Seleccione una imagen", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(context, "Rellene todos los campos", Toast.LENGTH_SHORT).show()
+            }
         }
 
         btSelectImage.setOnClickListener {
@@ -84,18 +85,6 @@ class AddSerieDialogFragment : DialogFragment() {
             intent.type = "image/*"
             startActivityForResult(intent, 0)
         }
-
-//        btUploadImage.setOnClickListener {
-//            storageServ.uploadImageToFirebase(filename,selectedPhotoUri, object: RealtimeDataListener<String> {
-//                override fun onDataChange(updatedData: String) {
-//                    Log.d("StorageServices", "Url de la imagen $updatedData")
-//                }
-//
-//                override fun onError(exception: Exception) {
-//                    Log.w("StorageServices", "Error url imagne", exception)
-//                }
-//            })
-//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

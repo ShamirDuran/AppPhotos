@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.appseries.R
@@ -43,11 +44,16 @@ class EditSerieDialogFragment : DialogFragment() {
         if (serie.fav) cbFavSerieEdit.isChecked = true
 
         btSaveEditSerie.setOnClickListener {
-            serie.nombre = tieTituloSerie.text.toString()
-            serie.desc = tieDescSerie.text.toString()
-            serie.fav = cbFavSerieEdit.isChecked
-            db.updateSeries(serie)
-            dismiss()
+
+            if (tieTituloSerie.text.toString() != "" && tieDescSerie.text.toString() != ""){
+                serie.nombre = tieTituloSerie.text.toString()
+                serie.desc = tieDescSerie.text.toString()
+                serie.fav = cbFavSerieEdit.isChecked
+                db.updateSeries(serie)
+                dismiss()
+            } else {
+                Toast.makeText(context, "No pueden haber campos vacios", Toast.LENGTH_SHORT).show()
+            }
         }
 
         btDeleteSerie.setOnClickListener {
