@@ -40,12 +40,11 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
         val imagenSerieFav = itemView.findViewById<ImageView>(R.id.ivItemFav)
     }
 
-    fun updateSeriesFav(data: List<Serie>) {
+    fun updateSeriesFav(data: List<Serie>?) {
         if (data != null) {
             listSeriesFav.clear()
             listSeriesFav.addAll(data)
             notifyDataSetChanged()
         }
-
     }
 }
