@@ -12,8 +12,10 @@
     <color name="etiquetaNombreVerde">#8A009688</color>
     <color name="etiquetaNombreGris">#C4869392</color>
     <color name="etiquetaNombre">#85E91E63</color>
-
     <color name="colorTexto">#4A3B40</color>
+
+
+    <color name="fondoPerfil">#FAFAFA</color>
 
 
 </resources>
