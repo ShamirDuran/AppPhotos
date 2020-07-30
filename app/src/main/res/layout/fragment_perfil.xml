@@ -63,12 +63,12 @@
                 android:src="@drawable/photo_perfil_clean" />
 
             <androidx.cardview.widget.CardView
-                android:background="#fff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
                 android:layout_marginTop="-24dp"
                 android:layout_marginEnd="26dp"
+                android:background="#fff"
                 app:cardElevation="4dp">
 
                 <LinearLayout
@@ -180,6 +180,13 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/btSingOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="sing out" />
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
