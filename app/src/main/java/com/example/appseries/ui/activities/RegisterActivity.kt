@@ -45,7 +45,7 @@ class RegisterActivity : AppCompatActivity() {
                                 Log.d(TAG, "createUserWithEmail:success")
                                 Log.d(TAG, "Email sent.")
 
-                                db.addUser(edFirstNameUser.text.toString())
+                                db.addUser(edFirstNameUser.text.toString(), user.uid)
 
                                 startActivity(Intent(this, LoginActivity::class.java))
                                 finish()

@@ -76,13 +76,13 @@ class SeriesServices {
             }
     }
 
-    fun addUser(nombre: String) {
+    fun addUser(nombre: String, uid:String) {
         val userDetails = hashMapOf(
-            "idUser" to userUID,
+            "idUser" to uid,
             "nombre" to nombre
         )
 
-        db.collection(USER_COLLECTION_NAME).document(userUID!!).set(userDetails)
+        db.collection(USER_COLLECTION_NAME).document(uid).set(userDetails)
             .addOnSuccessListener {
                 Log.d(TAG, "Agregado correctamente")
             }
