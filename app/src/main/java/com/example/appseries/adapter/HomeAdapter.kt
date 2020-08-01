@@ -44,7 +44,6 @@ class HomeAdapter(val homeListener: HomeListener) : RecyclerView.Adapter<HomeAda
         }
     }
 
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imagen: ImageView = itemView.findViewById<ImageView>(R.id.ivItemHome)
         var nombre: TextView = itemView.findViewById<TextView>(R.id.tvItemHome)

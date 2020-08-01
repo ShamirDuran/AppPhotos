@@ -4,17 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.appseries.R
 import com.example.appseries.model.Serie
+import com.example.appseries.network.SeriesServices
+import com.example.appseries.viewmodel.SerieDetaillViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_series_detail_dialog.*
 
 
 class SeriesDetailDialogFragment : DialogFragment() {
+
+    private lateinit var serieDetaillViewModel: SerieDetaillViewModel
+    private val db = SeriesServices()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,24 +38,26 @@ class SeriesDetailDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbarSeriesDialog.navigationIcon =
-            ContextCompat.getDrawable(view.context, R.drawable.ic_close)
-        toolbarSeriesDialog.setNavigationOnClickListener {
-            dismiss()
-        }
-
         val serie = arguments?.getSerializable("serie") as Serie
 
-        tvNombreSerieDialog.text = serie.nombre
-        tvDescSerieDialog.text = serie.desc
+        serieDetaillViewModel = ViewModelProvider(this).get(SerieDetaillViewModel::class.java)
+        serieDetaillViewModel.setDataSerie(serie)
 
         if (serie.imageUrl != "") {
             Picasso.get().load(serie.imageUrl).into(ivImagenSerieDialog)
         }
 
+        btDeleteSerie.setOnClickListener {
+            db.deleteSerie(serie)
+            dismiss()
+        }
+
         btEditSerie.setOnClickListener {
             onEditSerieClicked(serie)
         }
+
+        observeSerieDetailViewModel()
+        serieDetaillViewModel.suscribeToChanges()
     }
 
     private fun onEditSerieClicked(serie: Serie) {
@@ -57,4 +65,13 @@ class SeriesDetailDialogFragment : DialogFragment() {
         findNavController().navigate(R.id.editSerieDialogFragment, bundle)
     }
 
+    private fun observeSerieDetailViewModel() {
+        serieDetaillViewModel.getLivedataSerie()
+            .observe(viewLifecycleOwner, Observer<Serie> { serie ->
+                serie.let {
+                    tvNombreSerieDialog.text = serie.nombre
+                    tvDescSerieDialog.text = serie.desc
+                }
+            })
+    }
 }

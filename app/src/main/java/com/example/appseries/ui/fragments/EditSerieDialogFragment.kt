@@ -55,10 +55,5 @@ class EditSerieDialogFragment : DialogFragment() {
                 Toast.makeText(context, "No pueden haber campos vacios", Toast.LENGTH_SHORT).show()
             }
         }
-
-        btDeleteSerie.setOnClickListener {
-            db.deleteSerie(serie)
-            dismiss()
-        }
     }
 }

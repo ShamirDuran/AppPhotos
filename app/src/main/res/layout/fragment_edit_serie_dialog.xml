@@ -85,15 +85,6 @@
                     android:textAlignment="center"
                     android:textColor="#ffffff"
                     app:icon="@drawable/ic_add" />
-
-                <ImageButton
-                    android:layout_marginTop="40dp"
-                    android:id="@+id/btDeleteSerie"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:backgroundTint="@color/fav"
-                    android:contentDescription="Delete serie"
-                    android:src="@drawable/ic_delete" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

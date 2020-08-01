@@ -16,6 +16,7 @@
     <string name="action_register">Register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
+    <string name="first_name_user">Your name</string>
     <string name="empty_username">Please enter email</string>
     <string name="invalid_username">Not a valid email</string>
     <string name="empty_password">Please enter password</string>

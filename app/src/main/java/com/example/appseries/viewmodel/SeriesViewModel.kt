@@ -34,7 +34,6 @@ class SeriesViewModel : ViewModel() {
             override fun onFailed(exception: Exception) {
                 Log.w("SerieViewModel: ", "error al usar SerieService", exception)
             }
-
         })
     }
 
@@ -78,7 +77,6 @@ class SeriesViewModel : ViewModel() {
             override fun onError(exception: Exception) {
                 Log.w(TAG, "Error en snapshot y set", exception)
             }
-
         })
     }
 }

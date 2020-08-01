@@ -15,7 +15,30 @@
             android:id="@+id/toolbarSeriesDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/fav" />
+            android:background="@color/fav">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/btCloseSerieDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/fav"
+                    android:src="@drawable/ic_close"
+                    app:layout_anchorGravity="start|center" />
+
+                <ImageButton
+                    android:id="@+id/btDeleteSerie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_delete"
+                    android:layout_gravity="end"
+                    android:backgroundTint="@color/fav"/>
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView

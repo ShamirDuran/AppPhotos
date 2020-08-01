@@ -1,13 +1,13 @@
 package com.example.appseries.ui.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
-import androidx.core.widget.doAfterTextChanged
+import androidx.appcompat.app.AppCompatActivity
 import com.example.appseries.R
+import com.example.appseries.network.SeriesServices
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -15,6 +15,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private val TAG = "RegisterUser"
     private lateinit var auth: FirebaseAuth
+    private var db = SeriesServices()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,9 @@ class RegisterActivity : AppCompatActivity() {
                             if (task.isSuccessful) {
                                 Log.d(TAG, "createUserWithEmail:success")
                                 Log.d(TAG, "Email sent.")
+
+                                db.addUser(edFirstNameUser.text.toString())
+
                                 startActivity(Intent(this, LoginActivity::class.java))
                                 finish()
                             }
