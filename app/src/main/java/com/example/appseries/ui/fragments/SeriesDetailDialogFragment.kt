@@ -52,6 +52,10 @@ class SeriesDetailDialogFragment : DialogFragment() {
             dismiss()
         }
 
+        btCloseSerieDetail.setOnClickListener {
+            dismiss()
+        }
+
         btEditSerie.setOnClickListener {
             onEditSerieClicked(serie)
         }

@@ -3,6 +3,7 @@ package com.example.appseries.model
 import java.io.Serializable
 
 class Serie(
+    var idUser: String = "",
     var idSerie: String = "",
     var nombre: String = "",
     var desc: String = "",

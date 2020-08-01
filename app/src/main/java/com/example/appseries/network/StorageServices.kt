@@ -10,7 +10,7 @@ class StorageServices {
     private val db = SeriesServices()
     private var direc: String = ""
 
-    fun uploadImageToFirebase(filename: String, uri: Uri?, serie:Serie) {
+    fun uploadImageToFirebase(filename: String, uri: Uri?, serie: Serie) {
         val ref = storageRef.getReference("/images/$filename")
         ref.putFile(uri!!)
             .addOnSuccessListener {

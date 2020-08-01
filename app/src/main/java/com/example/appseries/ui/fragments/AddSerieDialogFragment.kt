@@ -62,6 +62,7 @@ class AddSerieDialogFragment : DialogFragment() {
             if (tiNombreSerie.editText?.text.toString() != "" && tiDescripcionSerie.editText?.text.toString() != ""){
                 if (selectedPhotoUri != null) {
                     val serie = Serie(
+                        "",
                         idSerie,
                         tiNombreSerie.editText?.text.toString(),
                         tiDescripcionSerie.editText?.text.toString(),

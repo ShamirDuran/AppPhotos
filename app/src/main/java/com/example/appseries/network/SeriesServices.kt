@@ -25,6 +25,7 @@ class SeriesServices {
 
     fun getSeries(callback: Callback<List<Serie>>?) {
         db.collection(SERIES_COLLECTION_NAME)
+            .whereEqualTo("userId", userUID)
             .get()
             .addOnSuccessListener { result ->
                 for (doc in result) {
@@ -40,6 +41,7 @@ class SeriesServices {
 
     fun getSeriesFav(callback: Callback<List<Serie>>?) {
         db.collection(SERIES_COLLECTION_NAME)
+            .whereEqualTo("userId", userUID)
             .whereEqualTo("fav", true)
             .get()
             .addOnSuccessListener { result ->
@@ -56,6 +58,7 @@ class SeriesServices {
 
     fun addSerie(serie: Serie) {
         val serieAdd = hashMapOf(
+            "idUser" to userUID,
             "idSerie" to serie.idSerie,
             "nombre" to serie.nombre,
             "desc" to serie.desc,
