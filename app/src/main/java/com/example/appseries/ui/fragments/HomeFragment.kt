@@ -38,7 +38,7 @@ class HomeFragment : Fragment(), HomeListener {
         seriesViewModel = ViewModelProvider(this).get(SeriesViewModel::class.java)
         seriesAdapter = HomeAdapter(this)
 
-        rvHome.layoutManager = GridLayoutManager(context, 2)
+        rvHome.layoutManager = GridLayoutManager(context, 1)
         rvHome.adapter = seriesAdapter
 
         fbAddSerie.setOnClickListener {

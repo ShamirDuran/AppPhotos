@@ -77,7 +77,7 @@ class SeriesServices {
             }
     }
 
-    fun addUser(nombre: String, uid:String) {
+    fun addUser(nombre: String, uid: String) {
         val userDetails = hashMapOf(
             "userId" to uid,
             "nombre" to nombre
