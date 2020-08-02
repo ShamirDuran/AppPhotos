@@ -1,6 +1,6 @@
 package com.example.appseries.model
 
 class User(
-    var id: String = "",
+    var userId: String = "",
     var nombre: String = ""
 )

@@ -29,6 +29,7 @@ class SeriesServices {
             .get()
             .addOnSuccessListener { result ->
                 for (doc in result) {
+                    Log.d(TAG, "UserUID : $userUID")
                     val list = result.toObjects(Serie::class.java)
                     callback!!.onSuccess(list)
                     break
@@ -58,7 +59,7 @@ class SeriesServices {
 
     fun addSerie(serie: Serie) {
         val serieAdd = hashMapOf(
-            "idUser" to userUID,
+            "userId" to userUID,
             "idSerie" to serie.idSerie,
             "nombre" to serie.nombre,
             "desc" to serie.desc,
@@ -78,7 +79,7 @@ class SeriesServices {
 
     fun addUser(nombre: String, uid:String) {
         val userDetails = hashMapOf(
-            "idUser" to uid,
+            "userId" to uid,
             "nombre" to nombre
         )
 
@@ -120,6 +121,7 @@ class SeriesServices {
 
     fun listenForUpdates(listener: RealtimeDataListener<List<Serie>>) {
         val seriesReference = db.collection(SERIES_COLLECTION_NAME)
+            .whereEqualTo("userId", userUID)
         seriesReference.addSnapshotListener { snapshot, error ->
             error?.let {
                 listener.onError(it)
