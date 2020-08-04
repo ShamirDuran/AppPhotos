@@ -107,18 +107,19 @@ class SeriesServices {
 
     }
 
-    fun getSearchUser(ref: String, callback: Callback<List<User>>) {
+    fun getSearchUser(ref: String, callback: Callback<List<User>>?) {
         db.collection(USER_COLLECTION_NAME)
+                //wherelastthan no
+                //wheregreater no
             .whereGreaterThanOrEqualTo("nombre", ref)
             .get()
             .addOnSuccessListener {
                 val usersData = it.toObjects(User::class.java)
-                Log.d(TAG, "Referencia usuarios encontrados ${usersData[0].userId }")
-                callback.onSuccess(usersData)
+                callback?.onSuccess(usersData)
             }
             .addOnFailureListener {
                 Log.w(TAG, "Error referencia usuarios: ", it)
-                callback.onFailed(it)
+                callback?.onFailed(it)
             }
     }
 
