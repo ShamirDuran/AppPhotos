@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appseries.R
 import com.example.appseries.model.Serie
 import com.squareup.picasso.Picasso
-import java.util.zip.Inflater
 
 class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
@@ -29,7 +28,7 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
         holder.nombreSerieFav.text = serieFav.nombre
         holder.descSerieFav.text = serieFav.desc
 
-        if (serieFav.imageUrl != ""){
+        if (serieFav.imageUrl != "") {
             Picasso.get().load(serieFav.imageUrl).into(holder.imagenSerieFav)
         }
     }

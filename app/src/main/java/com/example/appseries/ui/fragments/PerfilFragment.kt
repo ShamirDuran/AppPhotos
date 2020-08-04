@@ -2,7 +2,6 @@ package com.example.appseries.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.appseries.R
 import com.example.appseries.model.User
-import com.example.appseries.network.Callback
-import com.example.appseries.network.SeriesServices
 import com.example.appseries.ui.activities.LoginActivity
 import com.example.appseries.viewmodel.UsersViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -21,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_perfil.*
 class PerfilFragment : Fragment() {
 
     private val auth = FirebaseAuth.getInstance()
-    private val db = SeriesServices()
     private lateinit var  userViewModel: UsersViewModel
 
     override fun onCreateView(

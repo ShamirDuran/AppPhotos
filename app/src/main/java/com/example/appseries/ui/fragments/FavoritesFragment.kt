@@ -56,6 +56,7 @@ class FavoritesFragment : Fragment() {
                 favoritesAdapter.updateSeriesFav(series)
             }
 
+            // Muestra un mensaje avisando que no hya nada
             if (series.size != 0){
                 rvFav.visibility = View.VISIBLE
                 tvHayAlgo.visibility=View.INVISIBLE

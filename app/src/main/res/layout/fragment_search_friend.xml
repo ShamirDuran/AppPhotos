@@ -4,38 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.SearchFriend">
+    tools:context=".ui.fragments.SearchFriendFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarSearch"
+    <LinearLayout
+        android:id="@+id/layoutAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Toolbar
-            android:id="@+id/toolbalSearch"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiSearchFriends"
+            android:layout_margin="15dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiSearchFriendsRef"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:layout_marginStart="15dp"
+            android:id="@+id/btSearch"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/home"
-            tools:layout_editor_absoluteX="3dp"
-            tools:layout_editor_absoluteY="2dp">
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_search" />
+    </LinearLayout>
 
-
-        </Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/contentSearch"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearchFiends"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarSearch">
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@id/layoutAppBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

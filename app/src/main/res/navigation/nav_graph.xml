@@ -11,14 +11,24 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_favoritesFragment"
-            app:destination="@id/favorites" />
-        <action
             android:id="@+id/action_home_to_serieDetailFragmentDialog"
             app:destination="@id/serieDetailFragmentDialog" />
         <action
             android:id="@+id/action_home_to_addSerieDialogFragment"
             app:destination="@id/addSerieDialogFragment" />
+        <action
+            android:id="@+id/action_home_to_searchFriendFragment"
+            app:destination="@id/search" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/search"
+        android:name="com.example.appseries.ui.fragments.SearchFriendFragment"
+        android:label="fragment_search_friend"
+        tools:layout="@layout/fragment_search_friend">
+        <action
+            android:id="@+id/action_searchFriendFragment_to_favorites"
+            app:destination="@id/favorites" />
     </fragment>
 
     <fragment
@@ -51,11 +61,11 @@
         android:id="@+id/addSerieDialogFragment"
         android:name="com.example.appseries.ui.fragments.AddSerieDialogFragment"
         android:label="AddSerieDialogFragment"
-        tools:layout="@layout/fragment_add_serie_dialog"/>
+        tools:layout="@layout/fragment_add_serie_dialog" />
 
     <dialog
         android:id="@+id/editSerieDialogFragment"
         android:name="com.example.appseries.ui.fragments.EditSerieDialogFragment"
         android:label="EditSerieDialogFragment"
-        tools:layout="@layout/fragment_edit_serie_dialog"/>
+        tools:layout="@layout/fragment_edit_serie_dialog" />
 </navigation>

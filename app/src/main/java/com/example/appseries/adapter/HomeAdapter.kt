@@ -29,10 +29,6 @@ class HomeAdapter(val homeListener: HomeListener) : RecyclerView.Adapter<HomeAda
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val serie = listSeries[position]
 //
-//        Glide.with(holder.itemView.context)
-//            .load(serie.imageUrl)
-//            .into(holder.imagen)
-
         if (serie.imageUrl != ""){
             Picasso.get().load(serie.imageUrl).into(holder.imagen)
         }
