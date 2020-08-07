@@ -35,7 +35,6 @@ class UsersViewModel : ViewModel() {
         return user
     }
 
-
     private fun setDataUser(user: User?) {
         this.user.value = user
     }

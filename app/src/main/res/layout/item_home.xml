@@ -4,52 +4,52 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:paddingStart="14dp"
-        android:paddingEnd="10dp"
-        android:id="@+id/userDesc"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivPhotoPerfil"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/photo_perfil_clean"
-            app:civ_border_width="1dp"
-            app:civ_border_color="#A3958C8C"/>
-
-        <TextView
-            android:id="@+id/tvUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:textSize="14sp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="username" />
-    </LinearLayout>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardPost"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDesc"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userDesc">
+
+        <LinearLayout
+            android:id="@+id/userDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivPhotoPerfil"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/photo_perfil_clean"
+                app:civ_border_color="#A3958C8C"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="username"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/ivItemHome"
             android:layout_width="match_parent"
             android:layout_height="350dp"
+            android:contentDescription="Image post"
             android:scaleType="fitCenter"
-            android:src="@drawable/image_not_found"
-            android:contentDescription="Image post" />
+            android:src="@drawable/image_not_found" />
 
         <TextView
             android:id="@+id/tvItemHome"
@@ -71,25 +71,4 @@
             android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/cardPost"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal">
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:id="@+id/btFavoritePost"
-            android:backgroundTint="#fff"
-            android:src="@drawable/ic_fav"
-            android:layout_height="wrap_content"/>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btCommentPost"
-            android:backgroundTint="#fff"
-            android:src="@drawable/ic_comment"/>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,11 @@ import com.example.appseries.model.User
 import com.example.appseries.ui.activities.LoginActivity
 import com.example.appseries.viewmodel.UsersViewModel
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_friend_detail_dialog.*
 import kotlinx.android.synthetic.main.fragment_perfil.*
+import kotlinx.android.synthetic.main.fragment_perfil.tvNombreUsuario
+import kotlinx.android.synthetic.main.fragment_perfil.tvNumPhotosUploaded
+import kotlinx.android.synthetic.main.fragment_perfil.tvNumSeguidores
 
 class PerfilFragment : Fragment() {
 
@@ -33,16 +37,6 @@ class PerfilFragment : Fragment() {
 
         userViewModel = ViewModelProvider(this).get(UsersViewModel::class.java)
 
-//        db.getDataUser(object : Callback<User> {
-//            override fun onSuccess(result: User?) {
-//                tvNombreUsuario.text = result?.nombre
-//            }
-//
-//            override fun onFailed(exception: Exception) {
-//                Log.w("PerfilFragment", "Error en PerfilFragment: ", exception)
-//            }
-//        })
-
         val user = userViewModel.getLiveDataUser()
 
         btSingOut.setOnClickListener {
@@ -60,6 +54,8 @@ class PerfilFragment : Fragment() {
             .observe(viewLifecycleOwner, Observer<User> { user ->
                 user.let {
                     tvNombreUsuario.text = user.nombre
+                    tvNumSeguidores.text = user.followers?.size.toString()
+                    tvNumPhotosUploaded.text = user.photosUploaded.toString()
                 }
             })
     }

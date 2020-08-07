@@ -1,6 +1,7 @@
 package com.example.appseries.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.appseries.R
 import com.example.appseries.adapter.HomeAdapter
 import com.example.appseries.adapter.HomeListener
+import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.Serie
 import com.example.appseries.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -47,6 +49,7 @@ class HomeFragment : Fragment(), HomeListener {
 
         observeSeriesViewModel()
         seriesViewModel.suscribeToChanges()
+
     }
 
     private fun observeSeriesViewModel() {

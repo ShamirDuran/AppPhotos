@@ -1,54 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondoPerfil"
-    android:orientation="vertical"
-    tools:context=".ui.fragments.PerfilFragment">
+    tools:context=".ui.fragments.FriendDetailDialogFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/nvPerfil"
+        android:id="@+id/AppBarFriendDetail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Toolbar
-            android:id="@+id/toolbarPerfil"
+            android:id="@+id/toolbarFriendDetail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/fondoPerfil">
+            android:layout_height="wrap_content">
 
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvtbPerfil"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|start"
-                    android:layout_marginStart="10dp"
-                    android:text="Perfil"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <ImageButton
-                    android:id="@+id/btSettingsPerfil"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/fondoPerfil"
-                    android:src="@drawable/ic_drawer" />
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <ImageButton
+                android:id="@+id/btCloseFriendDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/home"
+                android:src="@drawable/ic_close" />
         </Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AppBarFriendDetail">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,6 +54,7 @@
                 android:layout_marginStart="26dp"
                 android:layout_marginTop="-24dp"
                 android:layout_marginEnd="26dp"
+                android:layout_marginBottom="5dp"
                 android:background="#fff"
                 app:cardElevation="4dp">
 
@@ -174,25 +161,27 @@
                                 android:textSize="19dp" />
 
                             <TextView
-                                android:textAlignment="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Follow"
+                                android:textAlignment="center"
                                 android:textSize="13sp" />
                         </LinearLayout>
                     </LinearLayout>
+
+                    <Button
+                        android:backgroundTint="@color/home"
+                        android:id="@+id/btFollowFriend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="0dp"
+                        android:text="follow" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-            <Button
-                android:id="@+id/btSingOut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/fav"
-                android:text="sign out" />
         </LinearLayout>
     </ScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

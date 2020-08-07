@@ -16,7 +16,6 @@ import com.example.appseries.viewmodel.SerieDetaillViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_series_detail_dialog.*
 
-
 class SeriesDetailDialogFragment : DialogFragment() {
 
     private lateinit var serieDetaillViewModel: SerieDetaillViewModel

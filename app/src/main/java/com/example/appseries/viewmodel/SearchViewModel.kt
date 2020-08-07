@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.User
 import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
@@ -15,17 +16,15 @@ class SearchViewModel : ViewModel() {
 
     fun getDataSearch(ref: String) {
         db.getSearchUser(ref, object : Callback<List<User>> {
+
             override fun onSuccess(result: List<User>?) {
                 result?.let {
-
                     val users = ArrayList<User>()
-
                     it.forEach { user ->
-                        if (user.nombre.contains(ref)){
+                        if (user.nombre.contains(ref) && user.userId != UserSingleton.getInstance().userId){
                             users.add(user)
                         }
                     }
-
                     setListUsers(users)
                 }
             }

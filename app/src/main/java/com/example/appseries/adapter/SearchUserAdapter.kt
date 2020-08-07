@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appseries.R
 import com.example.appseries.model.User
 
-class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.ViewHolder>() {
+class SearchUserAdapter(val listener: SearchListener) : RecyclerView.Adapter<SearchUserAdapter.ViewHolder>() {
 
     private var listUsers = ArrayList<User>()
 
@@ -30,6 +30,10 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.ViewHolder>() {
 //        if (user.imageUrl != "") {
 //            Picasso.get().load(user.imageUrl).into(holder.photoUser)
 //        }
+
+        holder.itemView.setOnClickListener{
+            listener.onFriendClicked(user, position)
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

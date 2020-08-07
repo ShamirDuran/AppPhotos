@@ -2,6 +2,7 @@ package com.example.appseries.network
 
 import android.util.Log
 import com.example.appseries.adapter.RealtimeDataListener
+import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.Serie
 import com.example.appseries.model.User
 import com.google.firebase.auth.FirebaseAuth
@@ -68,6 +69,8 @@ class SeriesServices {
             "fav" to serie.fav
         )
 
+        val photosUploaded: Int = UserSingleton.getInstance().photosUploaded
+
         db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie).set(serieAdd)
             .addOnFailureListener {
                 Log.d(TAG, "Agregado correctamente")
@@ -75,6 +78,9 @@ class SeriesServices {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error al subir nueva serie", exception)
             }
+
+        db.collection(USER_COLLECTION_NAME).document(userUID!!)
+            .update("photosUploaded", photosUploaded.plus(1))
     }
 
     fun addUser(nombre: String, uid: String) {
@@ -104,13 +110,10 @@ class SeriesServices {
                 Log.w(TAG, "Error al traer usuario", exception)
                 callback!!.onFailed(exception)
             }
-
     }
 
     fun getSearchUser(ref: String, callback: Callback<List<User>>?) {
         db.collection(USER_COLLECTION_NAME)
-                //wherelastthan no
-                //wheregreater no
             .whereGreaterThanOrEqualTo("nombre", ref)
             .get()
             .addOnSuccessListener {
@@ -160,6 +163,14 @@ class SeriesServices {
             snapshot?.let {
                 val user: User = snapshot.toObject(User::class.java)!!
                 listener.onDataChange(user)
+
+                // Singleton
+                user.follow?.let { follow ->
+                    UserSingleton.getInstance().follow = follow
+                }
+                UserSingleton.getInstance().nombre = user.nombre
+                UserSingleton.getInstance().userId = user.userId
+                UserSingleton.getInstance().photosUploaded = user.photosUploaded
             }
         }
     }
@@ -191,13 +202,6 @@ class SeriesServices {
             "fav" to serie.fav
         )
 
-        Log.d("SeriesServices", "id ${serie.getSerieDocumentId()}")
-        Log.d("SeriesServices", "nombre ${serie.nombre}")
-        Log.d("SeriesServices", "desc ${serie.desc}")
-        Log.d("SeriesServices", "imageid ${serie.getSerieImageId()}")
-        Log.d("SeriesServices", "imageurl ${serie.imageUrl}")
-        Log.d("SeriesServices", "fav ${serie.fav}")
-
         db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie)
             .update(serieEdit)
     }
@@ -205,5 +209,30 @@ class SeriesServices {
     fun deleteSerie(serie: Serie) {
         db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie)
             .delete()
+    }
+
+    fun updateFollow(friend: User, isFollow: Boolean) {
+        if (isFollow) {
+            // dejar de seguir
+            friend.follow?.remove(UserSingleton.getInstance().userId)
+            UserSingleton.getInstance().follow?.remove(friend.userId)
+
+            db.collection(USER_COLLECTION_NAME).document(userUID!!)
+                .update("follow", UserSingleton.getInstance().follow)
+
+            db.collection(USER_COLLECTION_NAME).document(friend.userId)
+                .update("followers", friend.follow)
+
+        } else {
+            // empezar a seguir
+            friend.follow?.add(userUID!!)
+            UserSingleton.getInstance().follow?.add(friend.userId)
+
+            db.collection(USER_COLLECTION_NAME).document(userUID!!)
+                .update("follow", UserSingleton.getInstance().follow)
+
+            db.collection(USER_COLLECTION_NAME).document(friend.userId)
+                .update("followers", friend.follow)
+        }
     }
 }

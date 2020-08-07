@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_searchFriendFragment_to_favorites"
             app:destination="@id/favorites" />
+        <action
+            android:id="@+id/action_search_to_friendDetaildialogFragment"
+            app:destination="@id/friendDetaildialogFragment" />
     </fragment>
 
     <fragment
@@ -68,4 +71,10 @@
         android:name="com.example.appseries.ui.fragments.EditSerieDialogFragment"
         android:label="EditSerieDialogFragment"
         tools:layout="@layout/fragment_edit_serie_dialog" />
+
+    <dialog
+        android:id="@+id/friendDetaildialogFragment"
+        android:name="com.example.appseries.ui.fragments.FriendDetailDialogFragment"
+        android:label="FriendDetailDialogFragment"
+        tools:layout="@layout/fragment_friend_detail_dialog"/>
 </navigation>

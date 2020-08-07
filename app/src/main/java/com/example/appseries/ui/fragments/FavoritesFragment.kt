@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appseries.R
 import com.example.appseries.adapter.FavoritesAdapter
+import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.Serie
 import com.example.appseries.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_favorites.*
