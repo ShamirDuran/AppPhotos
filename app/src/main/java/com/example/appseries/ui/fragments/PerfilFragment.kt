@@ -13,16 +13,13 @@ import com.example.appseries.model.User
 import com.example.appseries.ui.activities.LoginActivity
 import com.example.appseries.viewmodel.UsersViewModel
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_friend_detail_dialog.*
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_perfil.*
-import kotlinx.android.synthetic.main.fragment_perfil.tvNombreUsuario
-import kotlinx.android.synthetic.main.fragment_perfil.tvNumPhotosUploaded
-import kotlinx.android.synthetic.main.fragment_perfil.tvNumSeguidores
 
 class PerfilFragment : Fragment() {
 
     private val auth = FirebaseAuth.getInstance()
-    private lateinit var  userViewModel: UsersViewModel
+    private lateinit var userViewModel: UsersViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,21 +29,19 @@ class PerfilFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_perfil, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         userViewModel = ViewModelProvider(this).get(UsersViewModel::class.java)
-
-        val user = userViewModel.getLiveDataUser()
+        observeUserViewModel()
+        //userViewModel.suscribeToChanges()
 
         btSingOut.setOnClickListener {
             auth.signOut()
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
         }
-
-        observeUserViewModel()
-        userViewModel.suscribeToChanges()
     }
 
     private fun observeUserViewModel() {

@@ -165,12 +165,12 @@ class SeriesServices {
                 listener.onDataChange(user)
 
                 // Singleton
-                user.follow?.let { follow ->
-                    UserSingleton.getInstance().follow = follow
-                }
-                UserSingleton.getInstance().nombre = user.nombre
-                UserSingleton.getInstance().userId = user.userId
-                UserSingleton.getInstance().photosUploaded = user.photosUploaded
+//                user.follow?.let { follow ->
+//                    UserSingleton.getInstance().follow = follow
+//                }
+//                UserSingleton.getInstance().nombre = user.nombre
+//                UserSingleton.getInstance().userId = user.userId
+//                UserSingleton.getInstance().photosUploaded = user.photosUploaded
             }
         }
     }
