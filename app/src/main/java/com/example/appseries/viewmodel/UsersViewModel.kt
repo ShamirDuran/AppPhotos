@@ -25,7 +25,7 @@ class UsersViewModel : ViewModel() {
                 setDataUser(result)
             }
 
-            override fun onFailed(exception: Boolean) {
+            override fun onFailed(exception: Exception) {
                 Log.w(TAG, "Error: ", exception)
             }
         })

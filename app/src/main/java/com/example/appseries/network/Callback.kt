@@ -4,5 +4,5 @@ import java.lang.Exception
 
 interface Callback<T> {
     fun onSuccess(result: T?)
-    fun onFailed(exception: Boolean)
+    fun onFailed(exception: Exception)
 }

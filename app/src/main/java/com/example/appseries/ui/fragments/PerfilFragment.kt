@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.appseries.R
+import com.example.appseries.data.MessageFactory
 import com.example.appseries.model.User
+import com.example.appseries.network.Callback
 import com.example.appseries.ui.activities.LoginActivity
 import com.example.appseries.viewmodel.UsersViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_perfil.tvNumPhotosUploaded
 import kotlinx.android.synthetic.main.fragment_perfil.tvNumSeguidores
 import kotlinx.android.synthetic.main.fragment_perfil.tvNumSigue
 import kotlinx.android.synthetic.main.loading_screen.*
+import java.lang.Exception
 
 class PerfilFragment : Fragment() {
 
@@ -43,9 +46,21 @@ class PerfilFragment : Fragment() {
         //userViewModel.suscribeToChanges()
 
         btSignOut.setOnClickListener {
-            auth.signOut()
-            startActivity(Intent(context, LoginActivity::class.java))
-            activity?.finish()
+            val dialogFactory = MessageFactory()
+
+            context?.let {
+                val adviceDialog =
+                    dialogFactory.getDialog(it, "typeAction", object : Callback<Boolean> {
+                        override fun onSuccess(result: Boolean?) {
+                            auth.signOut()
+                            startActivity(Intent(context, LoginActivity::class.java))
+                            activity?.finish()
+                        }
+
+                        override fun onFailed(exception: Exception) {}
+                    })
+                adviceDialog.show()
+            }
         }
     }
 

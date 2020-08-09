@@ -35,11 +35,13 @@ class MessageFactory {
             TYPE_ACTION -> {
                 return AlertDialog.Builder(context)
                     .setMessage("Sign out")
-                    .setPositiveButton("yes", DialogInterface.OnClickListener { dialogInterface, i ->
-                        callback.onSuccess(treu)
-                    })
+                    .setPositiveButton(
+                        "yes",
+                        DialogInterface.OnClickListener { dialogInterface, i ->
+                            callback.onSuccess(true)
+                        })
                     .setNegativeButton("no", DialogInterface.OnClickListener { dialogInterface, i ->
-                        callback.onFailed(false)
+                        callback.onSuccess(false)
                     })
             }
         }

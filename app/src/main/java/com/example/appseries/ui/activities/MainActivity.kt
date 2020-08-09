@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Singleton",  "singleton : ${UserSingleton.getInstance().nombre}" )
             }
 
-            override fun onFailed(exception: Boolean) {
+            override fun onFailed(exception: Exception) {
                 Log.w("SeriesServices", "Error al cargar singleton", exception)
             }
         })

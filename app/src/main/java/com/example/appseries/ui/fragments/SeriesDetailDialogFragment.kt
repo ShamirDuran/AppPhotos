@@ -18,6 +18,7 @@ import com.example.appseries.network.StorageServices
 import com.example.appseries.viewmodel.SerieDetaillViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_series_detail_dialog.*
+import java.lang.Exception
 
 class SeriesDetailDialogFragment : DialogFragment() {
 
@@ -62,9 +63,8 @@ class SeriesDetailDialogFragment : DialogFragment() {
                             dismiss()
                         }
                     }
-                    override fun onFailed(exception: Boolean) {}
+                    override fun onFailed(exception: Exception) {}
                 })
-
                 adviceDialog.show()
             }
 

@@ -152,3 +152,10 @@
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </ScrollView>
+
+<include
+android:id="@+id/rvasd"
+android:layout_gravity="center_horizontal|center_vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+layout="@layout/loading_screen" />

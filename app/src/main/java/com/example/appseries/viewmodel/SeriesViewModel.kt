@@ -31,7 +31,7 @@ class SeriesViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailed(exception: Boolean) {
+            override fun onFailed(exception: Exception) {
                 Log.w("SerieViewModel: ", "error al usar SerieService", exception)
             }
         })
@@ -45,7 +45,7 @@ class SeriesViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailed(exception: Boolean) {
+            override fun onFailed(exception: Exception) {
                 Log.w("SerieViewModel: ", "error al usar SerieServiceFav", exception)
             }
         })
