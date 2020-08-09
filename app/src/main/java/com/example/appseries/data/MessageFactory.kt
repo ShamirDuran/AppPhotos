@@ -10,6 +10,7 @@ import com.example.appseries.network.Callback
 class MessageFactory {
     companion object {
         val TYPE_ADVISE = "typeAdvice"
+        val TYPE_ACTION = "typeAction"
     }
 
     fun getDialog(
@@ -29,6 +30,17 @@ class MessageFactory {
                         DialogInterface.OnClickListener { dialogInterface, i ->
                             callback.onSuccess(false)
                         })
+            }
+
+            TYPE_ACTION -> {
+                return AlertDialog.Builder(context)
+                    .setMessage("Sign out")
+                    .setPositiveButton("yes", DialogInterface.OnClickListener { dialogInterface, i ->
+                        callback.onSuccess(treu)
+                    })
+                    .setNegativeButton("no", DialogInterface.OnClickListener { dialogInterface, i ->
+                        callback.onFailed(false)
+                    })
             }
         }
         return AlertDialog.Builder(context)

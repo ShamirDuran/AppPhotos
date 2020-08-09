@@ -29,7 +29,7 @@ class SearchViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailed(exception: Exception) {
+            override fun onFailed(exception: Boolean) {
                 Log.w("SeriesServices", "Error getSearchUser", exception)
             }
         })

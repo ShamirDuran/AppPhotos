@@ -3,17 +3,13 @@ package com.example.appseries.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.appseries.R
 import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.User
 import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
-import com.example.appseries.ui.fragments.FavoritesFragment
 import com.example.appseries.ui.fragments.HomeFragment
 import com.example.appseries.ui.fragments.PerfilFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -42,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Singleton",  "singleton : ${UserSingleton.getInstance().nombre}" )
             }
 
-            override fun onFailed(exception: Exception) {
+            override fun onFailed(exception: Boolean) {
                 Log.w("SeriesServices", "Error al cargar singleton", exception)
             }
         })

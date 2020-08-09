@@ -14,6 +14,10 @@ import com.example.appseries.ui.activities.LoginActivity
 import com.example.appseries.viewmodel.UsersViewModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_perfil.*
+import kotlinx.android.synthetic.main.fragment_perfil.tvNombreUsuario
+import kotlinx.android.synthetic.main.fragment_perfil.tvNumPhotosUploaded
+import kotlinx.android.synthetic.main.fragment_perfil.tvNumSeguidores
+import kotlinx.android.synthetic.main.fragment_perfil.tvNumSigue
 import kotlinx.android.synthetic.main.loading_screen.*
 
 class PerfilFragment : Fragment() {
@@ -38,7 +42,7 @@ class PerfilFragment : Fragment() {
         observeUserViewModel()
         //userViewModel.suscribeToChanges()
 
-        btSingOut.setOnClickListener {
+        btSignOut.setOnClickListener {
             auth.signOut()
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
