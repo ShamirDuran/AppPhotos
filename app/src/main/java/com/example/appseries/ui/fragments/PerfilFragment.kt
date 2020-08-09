@@ -13,8 +13,8 @@ import com.example.appseries.model.User
 import com.example.appseries.ui.activities.LoginActivity
 import com.example.appseries.viewmodel.UsersViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_perfil.*
+import kotlinx.android.synthetic.main.loading_screen.*
 
 class PerfilFragment : Fragment() {
 
@@ -32,6 +32,7 @@ class PerfilFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressBarPerfil.visibility = View.INVISIBLE
 
         userViewModel = ViewModelProvider(this).get(UsersViewModel::class.java)
         observeUserViewModel()
@@ -50,7 +51,10 @@ class PerfilFragment : Fragment() {
                 user.let {
                     tvNombreUsuario.text = user.nombre
                     tvNumSeguidores.text = user.followers?.size.toString()
+                    tvNumSigue.text = user.follow?.size.toString()
                     tvNumPhotosUploaded.text = user.photosUploaded.toString()
+
+                    gradientPerfil.visibility = View.INVISIBLE
                 }
             })
     }

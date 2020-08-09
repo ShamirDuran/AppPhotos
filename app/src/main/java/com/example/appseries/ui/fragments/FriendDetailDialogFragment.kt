@@ -50,7 +50,6 @@ class FriendDetailDialogFragment : DialogFragment() {
 
             if (btFollowFriend.text == "unfollow") {
                 // Dejo de seguirlo
-
                 isFollow = true
                 btFollowFriend.text = "follow"
 
@@ -58,21 +57,17 @@ class FriendDetailDialogFragment : DialogFragment() {
                 numFollowers?.let {
                     numFollowers -= 1
                 }
-
                 tvNumSeguidores.text = numFollowers.toString()
 
             } else {
                 // Empezo a seguirlo
-
                 btFollowFriend.text = "unfollow"
 
                 numFollowers?.let {
                     numFollowers += 1;
                 }
-
                 tvNumSeguidores.text = numFollowers.toString()
             }
-
             db.updateFollow(friend, isFollow)
         }
 

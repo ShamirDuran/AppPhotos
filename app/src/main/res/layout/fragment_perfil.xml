@@ -195,4 +195,6 @@
                 android:text="sign out" />
         </LinearLayout>
     </ScrollView>
+
+<!--    <include layout="@layout/loading_screen"/>-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

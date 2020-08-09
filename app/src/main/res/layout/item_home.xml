@@ -1,74 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp">
 
     <androidx.cardview.widget.CardView
+
         android:id="@+id/cardPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDesc">
+        android:layout_margin="20dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="3dp">
 
         <LinearLayout
-            android:id="@+id/userDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:paddingStart="14dp"
-            android:paddingEnd="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ivPhotoPerfil"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/photo_perfil_clean"
-                app:civ_border_color="#A3958C8C"
-                app:civ_border_width="1dp" />
+            <LinearLayout
+                android:id="@+id/userDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="10dp">
 
-            <TextView
-                android:id="@+id/tvUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="username"
-                android:textSize="14sp" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivPhotoPerfil"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/photo_perfil_clean"
+                    app:civ_border_color="#A3958C8C"
+                    app:civ_border_width="1dp" />
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="username"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivItemHome"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:contentDescription="Image post"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_not_found" />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/ivItemHome"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:contentDescription="Image post"
-            android:scaleType="fitCenter"
-            android:src="@drawable/image_not_found" />
-
-        <TextView
-            android:id="@+id/tvItemHome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_margin="0dp"
-            android:layout_marginBottom="7dp"
-            android:background="#54000000"
-            android:gravity="center_horizontal"
-            android:padding="5dp"
-            android:shadowColor="#000"
-            android:shadowDx="-1"
-            android:shadowDy="-1"
-            android:shadowRadius="1"
-            android:text="Nombre de la serie"
-            android:textColor="#D5C8CA"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
     </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvItemHome"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@id/cardPost"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="-50dp"
+        android:layout_marginEnd="43dp"
+        android:background="@drawable/rounded_corner"
+        android:elevation="6dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal|center_vertical"
+        android:lines="1"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:shadowColor="#000"
+        android:shadowDx="-1"
+        android:shadowDy="-1"
+        android:shadowRadius="1"
+        android:text="Nombre de la serie"
+        android:textColor="@color/fav"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+</RelativeLayout>

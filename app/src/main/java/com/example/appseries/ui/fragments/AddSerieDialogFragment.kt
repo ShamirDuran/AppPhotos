@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,17 +13,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.appseries.R
 import com.example.appseries.model.Serie
-import com.example.appseries.network.SeriesServices
 import com.example.appseries.network.StorageServices
 import kotlinx.android.synthetic.main.fragment_add_serie_dialog.*
 import java.util.*
 
 class AddSerieDialogFragment : DialogFragment() {
 
-    private val db = SeriesServices()
     private val storageServ = StorageServices()
     private var selectedPhotoUri: Uri? = null
-    private var fbimagenUrl: String = ""
 
     private val filename = UUID.randomUUID().toString()
     private val idSerie = UUID.randomUUID().toString()

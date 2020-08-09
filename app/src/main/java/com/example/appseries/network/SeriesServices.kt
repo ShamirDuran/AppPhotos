@@ -15,8 +15,7 @@ const val SERIES_COLLECTION_NAME = "series"
 
 class SeriesServices {
     private val db = FirebaseFirestore.getInstance()
-    val userUID = FirebaseAuth.getInstance().currentUser?.uid
-
+    private val userUID = FirebaseAuth.getInstance().currentUser?.uid
     private val settins = FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true)
         .build() // Habilita la persistencia de datos para el offline
 
@@ -69,7 +68,7 @@ class SeriesServices {
             "fav" to serie.fav
         )
 
-        val photosUploaded: Int = UserSingleton.getInstance().photosUploaded
+        UserSingleton.getInstance().photosUploaded += 1
 
         db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie).set(serieAdd)
             .addOnFailureListener {
@@ -80,7 +79,7 @@ class SeriesServices {
             }
 
         db.collection(USER_COLLECTION_NAME).document(userUID!!)
-            .update("photosUploaded", photosUploaded.plus(1))
+            .update("photosUploaded", UserSingleton.getInstance().photosUploaded)
     }
 
     fun addUser(nombre: String, uid: String) {
@@ -209,6 +208,11 @@ class SeriesServices {
     fun deleteSerie(serie: Serie) {
         db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie)
             .delete()
+
+        UserSingleton.getInstance().photosUploaded -= 1
+
+        db.collection(USER_COLLECTION_NAME).document(userUID!!)
+            .update("photosUploaded", UserSingleton.getInstance().photosUploaded)
     }
 
     fun updateFollow(friend: User, isFollow: Boolean) {

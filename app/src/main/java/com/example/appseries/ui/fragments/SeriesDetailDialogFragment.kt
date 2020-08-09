@@ -10,16 +10,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.appseries.R
+import com.example.appseries.data.MessageFactory
 import com.example.appseries.model.Serie
+import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
+import com.example.appseries.network.StorageServices
 import com.example.appseries.viewmodel.SerieDetaillViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_series_detail_dialog.*
+import java.lang.Exception
 
 class SeriesDetailDialogFragment : DialogFragment() {
 
     private lateinit var serieDetaillViewModel: SerieDetaillViewModel
     private val db = SeriesServices()
+    private val storageServ = StorageServices()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +52,25 @@ class SeriesDetailDialogFragment : DialogFragment() {
         }
 
         btDeleteSerie.setOnClickListener {
-            db.deleteSerie(serie)
-            dismiss()
+
+            val dialogFactory = MessageFactory()
+
+            context?.let {
+                val adviceDialog = dialogFactory.getDialog(it, "typeAdvice", object : Callback<Boolean> {
+                    override fun onSuccess(result: Boolean?) {
+                        if (result == true){
+                            storageServ.deleteImageSerie(serie)
+                            dismiss()
+                        }
+                    }
+                    override fun onFailed(exception: Exception) {}
+                })
+
+                adviceDialog.show()
+            }
+
+//            storageServ.deleteImageSerie(serie)
+//            dismiss()
         }
 
         btCloseSerieDetail.setOnClickListener {

@@ -8,7 +8,6 @@ import com.google.firebase.storage.FirebaseStorage
 class StorageServices {
     private val storageRef = FirebaseStorage.getInstance()
     private val db = SeriesServices()
-    private var direc: String = ""
 
     fun uploadImageToFirebase(filename: String, uri: Uri?, serie: Serie) {
         val ref = storageRef.getReference("/images/$filename")
@@ -31,4 +30,19 @@ class StorageServices {
         db.addSerie(serie)
     }
 
+    fun deleteImageSerie(serie: Serie) {
+
+        val imageId = serie.imageId
+
+        storageRef.getReference().child("images/$imageId")
+            .delete()
+            .addOnSuccessListener {
+                Log.w("StorageServices", "Eliminada la imagen $imageId")
+            }
+            .addOnFailureListener {
+                Log.w("StorageServices", "Error delete imagen $imageId", it)
+            }
+
+        db.deleteSerie(serie)
+    }
 }
