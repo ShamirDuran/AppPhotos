@@ -1,7 +1,6 @@
 package com.example.appseries.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +10,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.appseries.R
 import com.example.appseries.adapter.HomeAdapter
-import com.example.appseries.adapter.HomeListener
-import com.example.appseries.data.UserSingleton
+import com.example.appseries.adapter.PostListener
 import com.example.appseries.model.Serie
 import com.example.appseries.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment(), HomeListener {
+class HomeFragment : Fragment(), PostListener {
 
     private lateinit var seriesAdapter: HomeAdapter
     private lateinit var seriesViewModel: SeriesViewModel
@@ -40,7 +40,7 @@ class HomeFragment : Fragment(), HomeListener {
         seriesViewModel = ViewModelProvider(this).get(SeriesViewModel::class.java)
         seriesAdapter = HomeAdapter(this)
 
-        rvHome.layoutManager = GridLayoutManager(context, 1)
+        rvHome.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         rvHome.adapter = seriesAdapter
 
         fbAddSerie.setOnClickListener {
@@ -61,7 +61,7 @@ class HomeFragment : Fragment(), HomeListener {
             })
     }
 
-    override fun onSerieClicked(serie: Serie, position: Int) {
+    override fun onPostClicked(serie: Serie, position: Int) {
         val bundle = bundleOf("serie" to serie)
         findNavController().navigate(R.id.serieDetailFragmentDialog, bundle)
     }

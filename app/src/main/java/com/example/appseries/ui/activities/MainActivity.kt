@@ -10,9 +10,6 @@ import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.User
 import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
-import com.example.appseries.ui.fragments.HomeFragment
-import com.example.appseries.ui.fragments.PerfilFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
@@ -28,14 +25,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadSingleton() {
-        db.getDataUser(object:Callback<User>{
+        db.getDataUser(object : Callback<User> {
             override fun onSuccess(result: User?) {
                 result?.let { user ->
-                    UserSingleton.getInstance().follow = user.follow
-                    UserSingleton.getInstance().nombre = user.nombre
                     UserSingleton.getInstance().userId = user.userId
+                    UserSingleton.getInstance().nombre = user.nombre
+                    UserSingleton.getInstance().photosUploaded = user.photosUploaded
+                    UserSingleton.getInstance().follow = user.follow
+                    UserSingleton.getInstance().followers = user.followers
                 }
-                Log.d("Singleton",  "singleton : ${UserSingleton.getInstance().nombre}" )
+                Log.d("Singleton", "singleton : ${UserSingleton.getInstance().nombre}")
             }
 
             override fun onFailed(exception: Exception) {

@@ -11,7 +11,7 @@ import com.example.appseries.model.Serie
 import com.squareup.picasso.Picasso
 
 
-class HomeAdapter(val homeListener: HomeListener) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     private val listSeries = ArrayList<Serie>()
 
@@ -36,7 +36,7 @@ class HomeAdapter(val homeListener: HomeListener) : RecyclerView.Adapter<HomeAda
         holder.nombre.text = serie.nombre
 
         holder.itemView.setOnClickListener{
-            homeListener.onSerieClicked(serie, position)
+            postListener.onPostClicked(serie, position)
         }
     }
 

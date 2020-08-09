@@ -70,8 +70,9 @@ class SeriesServices {
 
         UserSingleton.getInstance().photosUploaded += 1
 
-        db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie).set(serieAdd)
-            .addOnFailureListener {
+        db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie)
+            .set(serieAdd)
+            .addOnSuccessListener {
                 Log.d(TAG, "Agregado correctamente")
             }
             .addOnFailureListener { exception ->
