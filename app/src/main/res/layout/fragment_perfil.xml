@@ -1,161 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/btSettings"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="start"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="40dp"
-            android:background="#fff"
-            android:src="@drawable/ic_settings"
-            android:tint="@color/grace_icon"
-            tools:ignore="ContentDescription" />
-
-        <ImageButton
-            android:id="@+id/btSignOut"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="#fff"
-            android:src="@drawable/ic_signout"
-            android:tint="@color/grace_icon"
-            tools:ignore="ContentDescription" />
-
-        <LinearLayout
-            android:id="@+id/headerPerfil"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ivPhotoUser"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="65dp"
-                android:src="@drawable/photo_perfil_clean" />
+            <ImageButton
+                android:id="@+id/btSettings"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:background="#fff"
+                android:src="@drawable/ic_settings"
+                android:tint="@color/grace_icon"
+                tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/tvNombreUsuario"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:letterSpacing="0.033"
-                android:text="Peter Smith"
-                android:textColor="#000"
-                android:textSize="29sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvDescriptionUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="Designer | Photographer"
-                android:textColor="#000"
-                android:textSize="16sp" />
+            <ImageButton
+                android:id="@+id/btSignOut"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="#fff"
+                android:src="@drawable/ic_signout"
+                android:tint="@color/grace_icon"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
+                android:id="@+id/headerPerfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivPhotoUser"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="65dp"
+                    android:src="@drawable/photo_perfil_clean" />
+
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/tvNombreUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:letterSpacing="0.033"
+                    android:text="Peter Smith"
+                    android:textColor="#000"
+                    android:textSize="28.3sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDescriptionUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:text="Designer | Photographer"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp">
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
-                    <TextView
-                        android:id="@+id/tvNumPhotosUploaded"
-                        style="@style/ProfileNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="198"
-                        android:textColor="@color/fav" />
-
-                    <TextView
-                        style="@style/ProfileTextNum"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PHOTOS" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp">
+                        <TextView
+                            android:id="@+id/tvNumPhotosUploaded"
+                            style="@style/ProfileNum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="198"
+                            android:textColor="@color/fav" />
 
-                    <TextView
-                        android:id="@+id/tvNumSeguidores"
-                        style="@style/ProfileNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="65K" />
+                        <TextView
+                            style="@style/ProfileTextNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PHOTOS" />
+                    </LinearLayout>
 
-                    <TextView
-                        style="@style/ProfileTextNum"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="FOLLOWERS" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp">
+                        <TextView
+                            android:id="@+id/tvNumSeguidores"
+                            style="@style/ProfileNum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="65K" />
 
-                    <TextView
-                        android:id="@+id/tvNumSigue"
-                        style="@style/ProfileNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="718" />
+                        <TextView
+                            style="@style/ProfileTextNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FOLLOWERS" />
+                    </LinearLayout>
 
-                    <TextView
-                        style="@style/ProfileTextNum"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="FOLLOWING" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp">
+
+                        <TextView
+                            android:id="@+id/tvNumSigue"
+                            style="@style/ProfileNum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="718" />
+
+                        <TextView
+                            style="@style/ProfileTextNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FOLLOWING" />
+                    </LinearLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_marginVertical="25dp"
+                    android:background="#EDEDED" />
+
+                <include layout="@layout/rv_perfil" />
             </LinearLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </ScrollView>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:layout_marginVertical="25dp"
-                android:background="#EDEDED" />
+    <include
+        android:id="@+id/rvasd"
+        layout="@layout/loading_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|center_vertical" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-            <include layout="@layout/rv_perfil" />
-        </LinearLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</ScrollView>
-
-<include
-android:id="@+id/rvasd"
-android:layout_gravity="center_horizontal|center_vertical"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-layout="@layout/loading_screen" />
