@@ -1,5 +1,6 @@
 package com.example.appseries.model
 
+import com.google.firebase.Timestamp
 import java.io.Serializable
 
 class Serie(

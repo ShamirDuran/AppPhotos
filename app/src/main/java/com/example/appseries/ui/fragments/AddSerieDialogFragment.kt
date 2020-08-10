@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.appseries.R
 import com.example.appseries.model.Serie
 import com.example.appseries.network.StorageServices
+import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.fragment_add_serie_dialog.*
 import java.util.*
 

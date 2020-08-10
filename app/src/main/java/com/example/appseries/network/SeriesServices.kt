@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.firestore.Query
 
 const val TAG = "SeriesService"
 const val USER_COLLECTION_NAME = "users"
@@ -67,8 +68,7 @@ class SeriesServices {
             "desc" to serie.desc,
             "imageId" to serie.imageId,
             "imageUrl" to serie.imageUrl,
-            "fav" to serie.fav,
-            "time" to Timestamp.now()
+            "fav" to serie.fav
         )
 
         UserSingleton.getInstance().photosUploaded += 1
@@ -206,6 +206,9 @@ class SeriesServices {
             .delete()
 
         UserSingleton.getInstance().photosUploaded -= 1
+        if (UserSingleton.getInstance().photosUploaded < 0) {
+            UserSingleton.getInstance().photosUploaded = 0
+        }
 
         db.collection(USER_COLLECTION_NAME).document(userUID!!)
             .update("photosUploaded", UserSingleton.getInstance().photosUploaded)
