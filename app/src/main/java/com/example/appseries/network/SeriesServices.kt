@@ -5,7 +5,9 @@ import com.example.appseries.adapter.RealtimeDataListener
 import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.Serie
 import com.example.appseries.model.User
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 
@@ -23,13 +25,13 @@ class SeriesServices {
         db.firestoreSettings = settins
     }
 
-    fun getSeries(callback: Callback<List<Serie>>?) {
+    fun getSeries(callback: Callback<List<Serie>>?, userID:String = userUID!!) {
         db.collection(SERIES_COLLECTION_NAME)
-            .whereEqualTo("userId", userUID)
+            .whereEqualTo("userId", userID)
             .get()
             .addOnSuccessListener { result ->
                 for (doc in result) {
-                    Log.d(TAG, "UserUID : $userUID")
+                    Log.d(TAG, "UserID : $userID")
                     val list = result.toObjects(Serie::class.java)
                     callback!!.onSuccess(list)
                     break
@@ -65,7 +67,8 @@ class SeriesServices {
             "desc" to serie.desc,
             "imageId" to serie.imageId,
             "imageUrl" to serie.imageUrl,
-            "fav" to serie.fav
+            "fav" to serie.fav,
+            "time" to Timestamp.now()
         )
 
         UserSingleton.getInstance().photosUploaded += 1
@@ -98,8 +101,8 @@ class SeriesServices {
             }
     }
 
-    fun getDataUser(callback: Callback<User>?) {
-        db.collection(USER_COLLECTION_NAME).document(userUID!!)
+    fun getDataUser(callback: Callback<User>?, userID: String = userUID!!) {
+        db.collection(USER_COLLECTION_NAME).document(userID)
             .get()
             .addOnSuccessListener { result ->
                 Log.d(TAG, "Traido correctamente")
@@ -138,9 +141,9 @@ class SeriesServices {
             }
     }
 
-    fun listenForUpdates(listener: RealtimeDataListener<List<Serie>>) {
+    fun listenForUpdates(listener: RealtimeDataListener<List<Serie>>, userID:String = userUID!!) {
         val seriesReference = db.collection(SERIES_COLLECTION_NAME)
-            .whereEqualTo("userId", userUID)
+            .whereEqualTo("userId", userID)
         seriesReference.addSnapshotListener { snapshot, error ->
             error?.let {
                 listener.onError(it)
@@ -163,14 +166,6 @@ class SeriesServices {
             snapshot?.let {
                 val user: User = snapshot.toObject(User::class.java)!!
                 listener.onDataChange(user)
-
-                // Singleton
-//                user.follow?.let { follow ->
-//                    UserSingleton.getInstance().follow = follow
-//                }
-//                UserSingleton.getInstance().nombre = user.nombre
-//                UserSingleton.getInstance().userId = user.userId
-//                UserSingleton.getInstance().photosUploaded = user.photosUploaded
             }
         }
     }
@@ -218,20 +213,19 @@ class SeriesServices {
 
     fun updateFollow(friend: User, isFollow: Boolean) {
         if (isFollow) {
-            // dejar de seguir
-            friend.follow?.remove(UserSingleton.getInstance().userId)
-            UserSingleton.getInstance().follow?.remove(friend.userId)
+            // empezar a seguir
+            friend.follow?.add(userUID!!)
+            UserSingleton.getInstance().follow?.add(friend.userId)
 
             db.collection(USER_COLLECTION_NAME).document(userUID!!)
                 .update("follow", UserSingleton.getInstance().follow)
 
             db.collection(USER_COLLECTION_NAME).document(friend.userId)
                 .update("followers", friend.follow)
-
         } else {
-            // empezar a seguir
-            friend.follow?.add(userUID!!)
-            UserSingleton.getInstance().follow?.add(friend.userId)
+            // dejar de seguir
+            friend.follow?.remove(UserSingleton.getInstance().userId)
+            UserSingleton.getInstance().follow?.remove(friend.userId)
 
             db.collection(USER_COLLECTION_NAME).document(userUID!!)
                 .update("follow", UserSingleton.getInstance().follow)

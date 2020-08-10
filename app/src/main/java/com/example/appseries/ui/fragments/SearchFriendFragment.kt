@@ -1,6 +1,7 @@
 package com.example.appseries.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +16,17 @@ import com.example.appseries.R
 import com.example.appseries.adapter.SearchListener
 import com.example.appseries.adapter.SearchUserAdapter
 import com.example.appseries.model.User
+import com.example.appseries.network.Callback
+import com.example.appseries.network.SeriesServices
 import com.example.appseries.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search_friend.*
+import java.lang.Exception
 
 class SearchFriendFragment : Fragment(), SearchListener {
 
     private lateinit var searchViewModel: SearchViewModel
     private lateinit var searchUserAdapter: SearchUserAdapter
+    private val db = SeriesServices()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +50,7 @@ class SearchFriendFragment : Fragment(), SearchListener {
         btSearch.setOnClickListener {
             val ref = tiSearchFriendsRef.text.toString().capitalize()
 
-            if (ref != ""){
+            if (ref != "") {
                 searchViewModel.getDataSearch(ref)
                 observerViewModel()
             } else {
@@ -55,15 +60,25 @@ class SearchFriendFragment : Fragment(), SearchListener {
     }
 
     override fun onFriendClicked(friend: User, position: Int) {
-        val bundle = bundleOf("friend" to  friend)
-        findNavController().navigate(R.id.friendDetaildialogFragment, bundle)
+        db.getDataUser(object : Callback<User> {
+            override fun onSuccess(result: User?) {
+                val bundle = bundleOf("friend" to result)
+                findNavController().navigate(R.id.friendDetaildialogFragment, bundle)
+            }
+
+            override fun onFailed(exception: Exception) {
+                Log.w("SeriesServices", "Error al enviar detalles del usuario", exception)
+            }
+
+        }, friend.userId)
     }
 
     private fun observerViewModel() {
-        searchViewModel.getLiveListUsers().observe(viewLifecycleOwner, Observer<List<User>> { users ->
-            users.let {
-                searchUserAdapter.updateListUser(users)
-            }
-        })
+        searchViewModel.getLiveListUsers()
+            .observe(viewLifecycleOwner, Observer<List<User>> { users ->
+                users.let {
+                    searchUserAdapter.updateListUser(users)
+                }
+            })
     }
 }

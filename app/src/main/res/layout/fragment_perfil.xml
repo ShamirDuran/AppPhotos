@@ -44,8 +44,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivPhotoUser"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="65dp"
                     android:src="@drawable/photo_perfil_clean" />
@@ -59,18 +59,19 @@
                     android:letterSpacing="0.033"
                     android:text="Peter Smith"
                     android:textColor="#000"
-                    android:textSize="28.3sp"
+                    android:textSize="27sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvDescriptionUser"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:layout_marginTop="2dp"
-                    android:text="Designer | Photographer"
-                    android:textColor="#000"
-                    android:textSize="16sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvDescriptionUser"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:layout_marginTop="2dp"-->
+<!--                    android:text="Designer | Photographer"-->
+<!--                    android:ellipsize="end"-->
+<!--                    android:textColor="#000"-->
+<!--                    android:textSize="16sp" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
