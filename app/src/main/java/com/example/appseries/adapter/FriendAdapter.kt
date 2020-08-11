@@ -10,7 +10,7 @@ import com.example.appseries.model.Serie
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.rv_perfil.view.*
 
-class FriendAdapter(postListener: PostListener) : RecyclerView.Adapter<FriendAdapter.ViewHolder>() {
+class FriendAdapter(val postListener: PostListener) : RecyclerView.Adapter<FriendAdapter.ViewHolder>() {
     private val listPost = ArrayList<Serie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendAdapter.ViewHolder {
@@ -28,6 +28,10 @@ class FriendAdapter(postListener: PostListener) : RecyclerView.Adapter<FriendAda
         val serie = listPost[position]
         if (serie.imageUrl != "") {
             Picasso.get().load(serie.imageUrl).into(holder.photo)
+        }
+
+        holder.photo.setOnClickListener {
+            postListener.onPostClicked(serie, position)
         }
     }
 

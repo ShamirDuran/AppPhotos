@@ -282,4 +282,20 @@ class SeriesServices {
                 .update("followers", friend.follow)
         }
     }
+
+    fun updateFavorite(idSerie: String, isFav:Boolean) {
+        if (isFav){
+            // Esta agregado a favs, quiere quitarlo
+            UserSingleton.getInstance().seriesFav.remove(idSerie)
+            db.collection(USER_COLLECTION_NAME).document(userUID!!)
+                .update("seriesFav", UserSingleton.getInstance().seriesFav)
+                .addOnFailureListener { Log.w(TAG, "Error al quitar de fav", it) }
+        } else{
+            // No estaba agregado a fav, quiere agregarlo
+            UserSingleton.getInstance().seriesFav.add(idSerie)
+            db.collection(USER_COLLECTION_NAME).document(userUID!!)
+                .update("seriesFav", UserSingleton.getInstance().seriesFav)
+                .addOnFailureListener{ Log.w(TAG, "Error al tratar de agregar a fav", it) }
+        }
+    }
 }

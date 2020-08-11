@@ -5,9 +5,10 @@ import com.example.appseries.model.Serie
 class UserSingleton {
     var userId = ""
     var nombre = ""
-    var follow: ArrayList<String>? = ArrayList<String>()
-    var followers: ArrayList<String>? = ArrayList<String>()
+    var follow: ArrayList<String>? = ArrayList()
+    var followers: ArrayList<String>? = ArrayList()
     var photosUploaded: Int = 0
+    var seriesFav:ArrayList<String> = ArrayList()
 
     companion object {
         private var instance: UserSingleton? = null
