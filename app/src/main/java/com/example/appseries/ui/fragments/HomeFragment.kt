@@ -1,23 +1,28 @@
 package com.example.appseries.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appseries.R
 import com.example.appseries.adapter.HomeAdapter
 import com.example.appseries.adapter.PostListener
+import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.Serie
+import com.example.appseries.model.User
+import com.example.appseries.network.Callback
+import com.example.appseries.viewmodel.HomeViewModel
 import com.example.appseries.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.lang.Exception
 
 class HomeFragment : Fragment(), PostListener {
 
@@ -30,7 +35,6 @@ class HomeFragment : Fragment(), PostListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -48,7 +52,6 @@ class HomeFragment : Fragment(), PostListener {
         }
 
         observeSeriesViewModel()
-        seriesViewModel.suscribeToChanges()
 
     }
 
@@ -66,7 +69,7 @@ class HomeFragment : Fragment(), PostListener {
         findNavController().navigate(R.id.serieDetailFragmentDialog, bundle)
     }
 
-    fun onClickAddSerie() {
+    private fun onClickAddSerie() {
         findNavController().navigate(R.id.addSerieDialogFragment)
     }
 }

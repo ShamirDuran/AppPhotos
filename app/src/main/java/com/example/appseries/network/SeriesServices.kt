@@ -5,12 +5,11 @@ import com.example.appseries.adapter.RealtimeDataListener
 import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.Serie
 import com.example.appseries.model.User
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.Query
+import java.lang.Exception
 
 const val TAG = "SeriesService"
 const val USER_COLLECTION_NAME = "users"
@@ -19,6 +18,7 @@ const val SERIES_COLLECTION_NAME = "series"
 class SeriesServices {
     private val db = FirebaseFirestore.getInstance()
     private val userUID = FirebaseAuth.getInstance().currentUser?.uid
+    private val recentSeries = ArrayList<Serie>()
     private val settins = FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true)
         .build() // Habilita la persistencia de datos para el offline
 
@@ -26,14 +26,50 @@ class SeriesServices {
         db.firestoreSettings = settins
     }
 
-    fun getSeries(callback: Callback<List<Serie>>?, userID:String = userUID!!) {
+    private fun setRecentSeries(data: List<Serie>) {
+        this.recentSeries.addAll(data)
+    }
+
+    fun getRecentSeriesHome(listFollow: List<String>, callback: Callback<List<Serie>>?) {
+        Log.d("lista", "listfollow: ${listFollow.size}")
+
+//        listFollow.let { users ->
+//                db.collection(SERIES_COLLECTION_NAME)
+//                    .whereArrayContainsAny("userId", listFollow)
+//                    .orderBy("day", Query.Direction.DESCENDING)
+//                    .orderBy("hour", Query.Direction.DESCENDING)
+//                    .limit(5)
+//                    .get()
+//                    .addOnSuccessListener { result ->
+//                        val list: List<Serie> = result.toObjects(Serie::class.java)
+//                        Log.d("Encontro", "Series: ${list.size}")
+//                        setRecentSeries(list)
+//                    }
+//
+//                    .addOnFailureListener {
+//                        Log.w("Lista", "error", it)
+//                        callback?.onFailed(it)
+//                    }
+//                Log.d("lista", "size follow img add: ${recentSeries.size}")
+//            }
+//            recentSeries.let { list ->
+//                val send = list.sortedWith(compareByDescending<Serie> { it.hour }.thenBy { it.day })
+//                callback?.onSuccess(send)
+//
+//        }
+    }
+
+    fun getSeries(callback: Callback<List<Serie>>?, userID: String = userUID!!) {
         db.collection(SERIES_COLLECTION_NAME)
             .whereEqualTo("userId", userID)
+            .orderBy("day", Query.Direction.DESCENDING)
+            .orderBy("hour", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 for (doc in result) {
                     Log.d(TAG, "UserID : $userID")
                     val list = result.toObjects(Serie::class.java)
+//                    list.sortedWith(compareByDescending<Serie> { it.hour }.thenBy { it.day })
                     callback!!.onSuccess(list)
                     break
                 }
@@ -47,10 +83,13 @@ class SeriesServices {
         db.collection(SERIES_COLLECTION_NAME)
             .whereEqualTo("userId", userUID)
             .whereEqualTo("fav", true)
+            .orderBy("day", Query.Direction.DESCENDING)
+            .orderBy("hour", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 for (doc in result) {
                     val list = result.toObjects(Serie::class.java)
+//                    list = list.sortedWith(compareByDescending<Serie> { it.hour }.thenBy { it.day })
                     callback!!.onSuccess(list)
                     break
                 }
@@ -143,17 +182,20 @@ class SeriesServices {
             }
     }
 
-    fun listenForUpdates(listener: RealtimeDataListener<List<Serie>>, userID:String = userUID!!) {
+    fun listenForUpdates(listener: RealtimeDataListener<List<Serie>>, userID: String = userUID!!) {
         val seriesReference = db.collection(SERIES_COLLECTION_NAME)
             .whereEqualTo("userId", userID)
+            .orderBy("day", Query.Direction.DESCENDING)
+            .orderBy("hour", Query.Direction.DESCENDING)
         seriesReference.addSnapshotListener { snapshot, error ->
             error?.let {
                 listener.onError(it)
             }
 
             snapshot?.let {
-                val lista: List<Serie> = snapshot.toObjects(Serie::class.java)
-                listener.onDataChange(lista)
+                val list: List<Serie> = snapshot.toObjects(Serie::class.java)
+//                list.sortedWith(compareByDescending<Serie> { it.hour }.thenBy { it.day })
+                listener.onDataChange(list)
             }
         }
     }
@@ -217,6 +259,7 @@ class SeriesServices {
     }
 
     fun updateFollow(friend: User, isFollow: Boolean) {
+
         if (isFollow) {
             // empezar a seguir
             friend.follow?.add(userUID!!)

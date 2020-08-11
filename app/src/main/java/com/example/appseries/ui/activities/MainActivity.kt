@@ -1,8 +1,8 @@
 package com.example.appseries.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.example.appseries.R
@@ -11,7 +11,6 @@ import com.example.appseries.model.User
 import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     private val db = SeriesServices()
@@ -19,9 +18,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        configNav()
         loadSingleton()
+        configNav()
+    }
+
+    private fun configNav() {
+        NavigationUI.setupWithNavController(
+            nav_menu,
+            Navigation.findNavController(this, R.id.mainFragment)
+        )
     }
 
     private fun loadSingleton() {
@@ -41,12 +46,5 @@ class MainActivity : AppCompatActivity() {
                 Log.w("SeriesServices", "Error al cargar singleton", exception)
             }
         })
-    }
-
-    private fun configNav() {
-        NavigationUI.setupWithNavController(
-            nav_menu,
-            Navigation.findNavController(this, R.id.mainFragment)
-        )
     }
 }

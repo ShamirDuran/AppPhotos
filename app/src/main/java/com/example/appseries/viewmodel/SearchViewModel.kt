@@ -36,7 +36,6 @@ class SearchViewModel : ViewModel() {
     }
 
     fun setListUsers(data: List<User>) {
-        listUsers.value = null
         listUsers.value = data
     }
 

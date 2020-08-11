@@ -1,5 +1,7 @@
 package com.example.appseries.data
 
+import com.example.appseries.model.Serie
+
 class UserSingleton {
     var userId = ""
     var nombre = ""

@@ -1,6 +1,7 @@
 package com.example.appseries.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appseries.R
 import com.example.appseries.adapter.FavoritesAdapter
+import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.Serie
 import com.example.appseries.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_favorites.*
@@ -34,7 +36,6 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         seriesViewModel = ViewModelProvider(this).get(SeriesViewModel::class.java)
         favoritesAdapter = FavoritesAdapter()
 

@@ -61,18 +61,7 @@ class SeriesViewModel : ViewModel() {
     }
 
     private fun setListSerie(lista: List<Serie>) {
-//        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-
-        val order = lista.sortedWith(compareByDescending<Serie> { it.hour }.thenBy { it.day })
-
-        Log.d("Order", " ")
-        order.forEach {
-            Log.d("Order", it.day)
-        }
-        Log.d("Order", " ")
-
-
-        this.listSeries.value = order
+        this.listSeries.value = lista
     }
 
     private fun setListSerieFav(lista: List<Serie>) {

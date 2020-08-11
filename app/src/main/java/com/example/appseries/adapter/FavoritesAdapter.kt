@@ -17,7 +17,7 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesAdapter.ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val favView = inflater.inflate(R.layout.item_favorites, parent, false)
+        val favView = inflater.inflate(R.layout.item_perfil, parent, false)
         return ViewHolder(favView)
     }
 
