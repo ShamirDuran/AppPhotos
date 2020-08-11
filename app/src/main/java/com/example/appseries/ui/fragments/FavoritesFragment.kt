@@ -5,23 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appseries.R
 import com.example.appseries.adapter.FavoritesAdapter
-import com.example.appseries.data.UserSingleton
+import com.example.appseries.adapter.PostListener
 import com.example.appseries.model.Serie
 import com.example.appseries.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoritesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FavoritesFragment : Fragment() {
+class FavoritesFragment : Fragment(), PostListener {
 
     private lateinit var favoritesAdapter: FavoritesAdapter
     private lateinit var seriesViewModel: SeriesViewModel
@@ -37,10 +35,10 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         seriesViewModel = ViewModelProvider(this).get(SeriesViewModel::class.java)
-        favoritesAdapter = FavoritesAdapter()
+        favoritesAdapter = FavoritesAdapter(this)
 
         rvFav.apply {
-            layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = GridLayoutManager(context, 2)
             adapter = favoritesAdapter
         }
 
@@ -62,5 +60,10 @@ class FavoritesFragment : Fragment() {
                 tvHayAlgo.visibility=View.VISIBLE
             }
         })
+    }
+
+    override fun onPostClicked(serie: Serie, position: Int) {
+        val bundle = bundleOf("serie" to serie)
+        findNavController().navigate(R.id.serieDetailFragmentDialog, bundle)
     }
 }

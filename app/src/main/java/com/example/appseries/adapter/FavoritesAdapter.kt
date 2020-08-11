@@ -10,7 +10,7 @@ import com.example.appseries.R
 import com.example.appseries.model.Serie
 import com.squareup.picasso.Picasso
 
-class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
+class FavoritesAdapter(val postListener: PostListener) : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
     private var listSeriesFav = ArrayList<Serie>()
 
@@ -24,19 +24,19 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
     override fun getItemCount(): Int = listSeriesFav.size
 
     override fun onBindViewHolder(holder: FavoritesAdapter.ViewHolder, position: Int) {
-        val serieFav = listSeriesFav[position]
-        holder.nombreSerieFav.text = serieFav.nombre
-        holder.descSerieFav.text = serieFav.desc
+        val serieFav:Serie = listSeriesFav[position]
 
         if (serieFav.imageUrl != "") {
             Picasso.get().load(serieFav.imageUrl).into(holder.imagenSerieFav)
         }
+
+        holder.imagenSerieFav.setOnClickListener {
+            postListener.onPostClicked(serieFav, position)
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nombreSerieFav = itemView.findViewById<TextView>(R.id.tvTitleItemFav)
-        val descSerieFav = itemView.findViewById<TextView>(R.id.tvDescItemFav)
-        val imagenSerieFav = itemView.findViewById<ImageView>(R.id.ivItemFav)
+        val imagenSerieFav: ImageView = itemView.findViewById(R.id.ivPhotoPost)
     }
 
     fun updateSeriesFav(data: List<Serie>?) {
