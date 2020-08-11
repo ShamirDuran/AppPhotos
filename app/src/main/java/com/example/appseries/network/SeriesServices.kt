@@ -68,7 +68,9 @@ class SeriesServices {
             "desc" to serie.desc,
             "imageId" to serie.imageId,
             "imageUrl" to serie.imageUrl,
-            "fav" to serie.fav
+            "fav" to serie.fav,
+            "day" to serie.day,
+            "hour" to serie.hour
         )
 
         UserSingleton.getInstance().photosUploaded += 1

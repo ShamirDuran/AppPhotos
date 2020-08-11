@@ -42,6 +42,9 @@ class FriendDetailDialogFragment : DialogFragment(), PostListener {
         super.onViewCreated(view, savedInstanceState)
 
         val friend = arguments?.getSerializable("friend") as User
+
+        isFollow = UserSingleton.getInstance().follow?.contains(friend.userId)!!
+
         friendViewModel = ViewModelProvider(this).get(FriendViewModel::class.java)
         friendViewModel.getDataPosts(friend.userId)
         friendAdapter = FriendAdapter(this)

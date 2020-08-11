@@ -9,6 +9,7 @@ import com.example.appseries.model.Serie
 import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
 import java.lang.Exception
+import java.time.format.DateTimeFormatter
 
 const val TAG = "SerieViewModel"
 
@@ -60,7 +61,18 @@ class SeriesViewModel : ViewModel() {
     }
 
     private fun setListSerie(lista: List<Serie>) {
-        this.listSeries.value = lista
+//        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+
+        val order = lista.sortedWith(compareByDescending<Serie> { it.hour }.thenBy { it.day })
+
+        Log.d("Order", " ")
+        order.forEach {
+            Log.d("Order", it.day)
+        }
+        Log.d("Order", " ")
+
+
+        this.listSeries.value = order
     }
 
     private fun setListSerieFav(lista: List<Serie>) {
