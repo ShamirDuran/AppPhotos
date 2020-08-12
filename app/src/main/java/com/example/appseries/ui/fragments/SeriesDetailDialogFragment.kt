@@ -46,6 +46,7 @@ class SeriesDetailDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val serie = arguments?.getSerializable("serie") as Serie
+        changeGUI(serie)
 
         // Se comprueba si el post esta agregado como favorito
         isFav = UserSingleton.getInstance().seriesFav.contains(serie.idSerie)
@@ -96,10 +97,23 @@ class SeriesDetailDialogFragment : DialogFragment() {
         serieDetaillViewModel.suscribeToChanges()
     }
 
+    private fun changeGUI(serie: Serie) {
+        if (UserSingleton.getInstance().userId == serie.userId) {
+            btEditSerie.visibility = View.VISIBLE
+            btDeleteSerie.isEnabled = false
+            btDeleteSerie.visibility = View.VISIBLE
+            btEditSerie.isEnabled = true
+        } else {
+            btEditSerie.visibility = View.INVISIBLE
+            btEditSerie.isEnabled = false
+            btDeleteSerie.visibility = View.INVISIBLE
+            btDeleteSerie.isEnabled = false
+        }
+    }
 
     private fun changeIconButtonFav() {
         if (isFav) {
-            btAddFav.setImageResource(R.drawable.ic_fav)
+            btAddFav.setImageResource(R.drawable.ic_fav_pink)
         } else {
             btAddFav.setImageResource(R.drawable.ic_fav_border)
         }

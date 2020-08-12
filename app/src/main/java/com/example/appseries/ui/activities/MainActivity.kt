@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                     UserSingleton.getInstance().photosUploaded = user.photosUploaded
                     UserSingleton.getInstance().follow = user.follow
                     UserSingleton.getInstance().followers = user.followers
+                    UserSingleton.getInstance().seriesFav = user.seriesFav
                 }
                 Log.d("Singleton", "singleton : ${UserSingleton.getInstance().nombre}")
             }

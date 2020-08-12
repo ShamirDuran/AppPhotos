@@ -1,129 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/ivImagenSerieDialog"
-                    android:layout_width="match_parent"
-                    android:layout_height="340dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/image_not_found" />
-
-                <ImageButton
-                    android:id="@+id/btCloseSerieDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|top"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="15dp"
-                    android:backgroundTint="#00FFFFFF"
-                    android:src="@drawable/ic_close"
-                    android:tint="@color/fondoPerfil"
-                    app:layout_anchorGravity="start|center" />
-
-                <ImageButton
-                    android:id="@+id/btDeleteSerie"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|top"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="6dp"
-                    android:backgroundTint="#00FFFFFF"
-                    android:src="@drawable/ic_delete"
-                    android:tint="@color/fondoPerfil" />
-
-                <ImageButton
-                    android:id="@+id/btAddFav"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_marginBottom="30dp"
-                    android:background="#00FFFFFF"
-                    android:layout_marginEnd="20dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_fav" />
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="-20dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp">
+                android:orientation="vertical">
 
-                <LinearLayout
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivImagenSerieDialog"
+                        android:layout_width="match_parent"
+                        android:layout_height="380dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/image_not_found" />
+
+                    <ImageButton
+                        android:id="@+id/btCloseSerieDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|top"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginTop="15dp"
+                        android:backgroundTint="#00FFFFFF"
+                        android:src="@drawable/ic_close"
+                        android:tint="@color/fondoPerfil"
+                        app:layout_anchorGravity="start|center" />
+
+                    <ImageButton
+                        android:id="@+id/btDeleteSerie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|top"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="6dp"
+                        android:backgroundTint="#00FFFFFF"
+                        android:src="@drawable/ic_delete"
+                        android:tint="@color/fondoPerfil" />
+
+                    <ImageButton
+                        android:id="@+id/btAddFav"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="30dp"
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/ic_fav" />
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginHorizontal="20dp"
-                    android:orientation="vertical">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginHorizontal="140dp"
-                        android:layout_marginTop="20dp"
-                        android:background="#B2B2B2" />
+                    android:layout_marginTop="-20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:weightSum="5">
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginHorizontal="140dp"
+                            android:layout_marginTop="20dp"
+                            android:background="#B2B2B2" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            android:weightSum="5">
+
+                            <TextView
+                                android:id="@+id/tvNombreSerieDialog"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center_vertical"
+                                android:letterSpacing="0.03"
+                                android:paddingEnd="18dp"
+                                android:shadowColor="#000"
+                                android:shadowDx="2"
+                                android:shadowDy="2"
+                                android:shadowRadius="1"
+                                android:text="Titulo del postadasdassssasdasdasdadasdasd"
+                                android:textColor="@color/fav"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/btEditSerie"
+                                android:layout_width="60dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:layout_weight="2"
+                                android:background="@color/fav"
+                                android:src="@drawable/ic_edit" />
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tvNombreSerieDialog"
+                            android:id="@+id/tvDescSerieDialog"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:letterSpacing="0.03"
-                            android:gravity="center_vertical"
-                            android:paddingEnd="18dp"
-                            android:shadowColor="#000"
-                            android:shadowDx="2"
-                            android:shadowDy="2"
-                            android:shadowRadius="1"
-                            android:text="Titulo del postadasdassssasdasdasdadasdasd"
-                            android:textColor="@color/fav"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
-
-                        <ImageButton
-                            android:id="@+id/btEditSerie"
-                            android:layout_width="60dp"
-                            android:layout_height="35dp"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:layout_weight="2"
-                            android:background="@color/fav"
-                            android:src="@drawable/ic_edit" />
+                            android:layout_marginVertical="20dp"
+                            android:justificationMode="inter_word"
+                            android:text="Texto descripcion de la iamgen"
+                            android:textColor="@color/colorTexto" />
                     </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
 
-                    <TextView
-                        android:id="@+id/tvDescSerieDialog"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="20dp"
-                        android:justificationMode="inter_word"
-                        android:text="Texto descripcion de la iamgen"
-                        android:textColor="@color/colorTexto"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvComments"
+            android:layout_width="match_parent"
+            android:layout_below="@id/scrollView"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="#fff"
+            android:layout_alignParentBottom="true">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutComment"
+                android:paddingHorizontal="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputTexComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/rounded_comment"
+                    android:hint="Comment..."
+                    android:paddingVertical="12dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
