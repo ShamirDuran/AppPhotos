@@ -10,31 +10,29 @@
         android:id="@+id/layoutAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingHorizontal="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tiSearchFriends"
-            android:layout_margin="15dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <ImageView
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/ic_search"/>
+
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiSearchFriendsRef"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:layout_marginStart="15dp"
-            android:id="@+id/btSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_search" />
+            android:layout_height="40dp"
+            android:id="@+id/tiSearchFriendsRef"
+            android:background="@drawable/rounded_comment"
+            android:imeOptions="actionSearch"
+            android:hint="Search..."
+            android:paddingHorizontal="12dp"
+            android:inputType="text"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

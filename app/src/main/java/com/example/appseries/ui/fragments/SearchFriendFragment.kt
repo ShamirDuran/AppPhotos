@@ -1,9 +1,16 @@
 package com.example.appseries.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,7 +25,7 @@ import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
 import com.example.appseries.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search_friend.*
-import java.lang.Exception
+
 
 class SearchFriendFragment : Fragment(), SearchListener {
 
@@ -47,15 +54,25 @@ class SearchFriendFragment : Fragment(), SearchListener {
             adapter = searchUserAdapter
         }
 
-        btSearch.setOnClickListener {
-            val ref = tiSearchFriendsRef.text.toString().capitalize()
-
-            if (ref != "") {
-                searchViewModel.getDataSearch(ref)
-                observerViewModel()
-            } else {
-                Toast.makeText(context, "Write something", Toast.LENGTH_SHORT).show()
+        tiSearchFriendsRef.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                performSearch()
+                val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+                return@OnEditorActionListener true
             }
+            false
+        })
+    }
+
+    private fun performSearch() {
+        val ref = tiSearchFriendsRef.text.toString().capitalize()
+
+        if (ref != "") {
+            searchViewModel.getDataSearch(ref)
+            observerViewModel()
+        } else {
+            Toast.makeText(context, "Write something", Toast.LENGTH_SHORT).show()
         }
     }
 

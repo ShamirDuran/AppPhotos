@@ -16,6 +16,7 @@
 
     <color name="grace_icon">#97959C</color>
     <color name="fondoPerfil">#FAFAFA</color>
+    <color name="fondoGris">#FAF6F6</color>
 
 
 </resources>
