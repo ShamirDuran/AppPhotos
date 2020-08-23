@@ -1,6 +1,10 @@
 package com.example.appseries.data
 
+import android.util.Log
 import com.example.appseries.model.Serie
+import com.example.appseries.model.User
+import com.example.appseries.network.Callback
+import com.example.appseries.network.SeriesServices
 
 class UserSingleton {
     var userId = ""

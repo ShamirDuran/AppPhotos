@@ -18,45 +18,11 @@ const val SERIES_COLLECTION_NAME = "series"
 class SeriesServices {
     private val db = FirebaseFirestore.getInstance()
     private val userUID = FirebaseAuth.getInstance().currentUser?.uid
-    private val recentSeries = ArrayList<Serie>()
     private val settins = FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true)
         .build() // Habilita la persistencia de datos para el offline
 
     init {
         db.firestoreSettings = settins
-    }
-
-    private fun setRecentSeries(data: List<Serie>) {
-        this.recentSeries.addAll(data)
-    }
-
-    fun getRecentSeriesHome(listFollow: List<String>, callback: Callback<List<Serie>>?) {
-        Log.d("lista", "listfollow: ${listFollow.size}")
-
-//        listFollow.let { users ->
-//                db.collection(SERIES_COLLECTION_NAME)
-//                    .whereArrayContainsAny("userId", listFollow)
-//                    .orderBy("day", Query.Direction.DESCENDING)
-//                    .orderBy("hour", Query.Direction.DESCENDING)
-//                    .limit(5)
-//                    .get()
-//                    .addOnSuccessListener { result ->
-//                        val list: List<Serie> = result.toObjects(Serie::class.java)
-//                        Log.d("Encontro", "Series: ${list.size}")
-//                        setRecentSeries(list)
-//                    }
-//
-//                    .addOnFailureListener {
-//                        Log.w("Lista", "error", it)
-//                        callback?.onFailed(it)
-//                    }
-//                Log.d("lista", "size follow img add: ${recentSeries.size}")
-//            }
-//            recentSeries.let { list ->
-//                val send = list.sortedWith(compareByDescending<Serie> { it.hour }.thenBy { it.day })
-//                callback?.onSuccess(send)
-//
-//        }
     }
 
     fun getSeries(callback: Callback<List<Serie>>?, userID: String = userUID!!) {
@@ -283,19 +249,19 @@ class SeriesServices {
         }
     }
 
-    fun updateFavorite(idSerie: String, isFav:Boolean) {
-        if (isFav){
+    fun updateFavorite(idSerie: String, isFav: Boolean) {
+        if (isFav) {
             // Esta agregado a favs, quiere quitarlo
             UserSingleton.getInstance().seriesFav.remove(idSerie)
             db.collection(USER_COLLECTION_NAME).document(userUID!!)
                 .update("seriesFav", UserSingleton.getInstance().seriesFav)
                 .addOnFailureListener { Log.w(TAG, "Error al quitar de fav", it) }
-        } else{
+        } else {
             // No estaba agregado a fav, quiere agregarlo
             UserSingleton.getInstance().seriesFav.add(idSerie)
             db.collection(USER_COLLECTION_NAME).document(userUID!!)
                 .update("seriesFav", UserSingleton.getInstance().seriesFav)
-                .addOnFailureListener{ Log.w(TAG, "Error al tratar de agregar a fav", it) }
+                .addOnFailureListener { Log.w(TAG, "Error al tratar de agregar a fav", it) }
         }
     }
 }

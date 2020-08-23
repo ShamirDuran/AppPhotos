@@ -10,16 +10,18 @@ import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.User
 import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private val db = SeriesServices()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadSingleton()
         configNav()
+        loadSingleton()
     }
 
     private fun configNav() {
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadSingleton() {
+        val userUID = FirebaseAuth.getInstance().currentUser?.uid
         db.getDataUser(object : Callback<User> {
             override fun onSuccess(result: User?) {
                 result?.let { user ->
@@ -40,7 +43,6 @@ class MainActivity : AppCompatActivity() {
                     UserSingleton.getInstance().followers = user.followers
                     UserSingleton.getInstance().seriesFav = user.seriesFav
                 }
-                Log.d("Singleton", "singleton : ${UserSingleton.getInstance().nombre}")
             }
 
             override fun onFailed(exception: Exception) {

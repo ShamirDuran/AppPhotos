@@ -62,9 +62,9 @@ class PerfilFragment : Fragment(), PostListener {
 
         observeUserViewModel()
         observeSerieViewModel()
-        serieViewModel.suscribeToChanges()
 
-        //userViewModel.suscribeToChanges()
+
+        userViewModel.suscribeToChanges()
 
         btSignOut.setOnClickListener {
             context?.let { context ->

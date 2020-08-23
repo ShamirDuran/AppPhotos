@@ -48,8 +48,8 @@ class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAda
     }
 
     fun updateListSeries(data: List<Serie>) {
-        listSeries.clear()
-        listSeries.addAll(data)
+        this.listSeries.clear()
+        this.listSeries.addAll(data)
         notifyDataSetChanged()
     }
 }

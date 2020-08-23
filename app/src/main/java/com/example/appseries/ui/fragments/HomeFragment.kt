@@ -2,9 +2,7 @@ package com.example.appseries.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,14 +18,12 @@ import com.example.appseries.model.Serie
 import com.example.appseries.model.User
 import com.example.appseries.network.Callback
 import com.example.appseries.viewmodel.HomeViewModel
-import com.example.appseries.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.lang.Exception
 
 class HomeFragment : Fragment(), PostListener {
 
     private lateinit var seriesAdapter: HomeAdapter
-    private lateinit var seriesViewModel: SeriesViewModel
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +37,7 @@ class HomeFragment : Fragment(), PostListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        seriesViewModel = ViewModelProvider(this).get(SeriesViewModel::class.java)
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         seriesAdapter = HomeAdapter(this)
 
         rvHome.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -52,11 +48,10 @@ class HomeFragment : Fragment(), PostListener {
         }
 
         observeSeriesViewModel()
-
     }
 
     private fun observeSeriesViewModel() {
-        seriesViewModel.getLiveDataListSeries()
+        homeViewModel.getLiveDataSeriesHome()
             .observe(viewLifecycleOwner, Observer<List<Serie>> { series ->
                 series.let {
                     seriesAdapter.updateListSeries(series)
