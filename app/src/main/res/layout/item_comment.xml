@@ -2,7 +2,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,8 +12,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivPhotoUserComment"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_gravity="center_horizontal|start"
             android:src="@drawable/photo_perfil_clean" />
 
@@ -29,8 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:orientation="vertical"
-                android:paddingHorizontal="3dp"
-                android:paddingVertical="13dp">
+                android:paddingHorizontal="2dp"
+                android:paddingVertical="5dp">
 
                 <TextView
                     android:id="@+id/tvUsernameComment"

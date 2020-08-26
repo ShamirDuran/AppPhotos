@@ -54,7 +54,14 @@ class HomeFragment : Fragment(), PostListener {
         homeViewModel.getLiveDataSeriesHome()
             .observe(viewLifecycleOwner, Observer<List<Serie>> { series ->
                 series.let {
-                    seriesAdapter.updateListSeries(series)
+                    seriesAdapter.updateListSeries(it)
+                }
+            })
+
+        homeViewModel.getLiveDataUsers()
+            .observe(viewLifecycleOwner, Observer<List<User>> {users ->
+                users.let {
+                    seriesAdapter.updateListUser(it)
                 }
             })
     }

@@ -10,7 +10,8 @@ import com.example.appseries.R
 import com.example.appseries.model.Serie
 import com.squareup.picasso.Picasso
 
-class FavoritesAdapter(val postListener: PostListener) : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
+class FavoritesAdapter(val postListener: PostListener) :
+    RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
     private var listSeriesFav = ArrayList<Serie>()
 
@@ -24,7 +25,7 @@ class FavoritesAdapter(val postListener: PostListener) : RecyclerView.Adapter<Fa
     override fun getItemCount(): Int = listSeriesFav.size
 
     override fun onBindViewHolder(holder: FavoritesAdapter.ViewHolder, position: Int) {
-        val serieFav:Serie = listSeriesFav[position]
+        val serieFav: Serie = listSeriesFav[position]
 
         if (serieFav.imageUrl != "") {
             Picasso.get().load(serieFav.imageUrl).into(holder.imagenSerieFav)

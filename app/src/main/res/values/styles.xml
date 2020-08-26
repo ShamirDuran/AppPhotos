@@ -16,7 +16,7 @@
 
     <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/fondoGris</item>
+        <item name="android:statusBarColor">#ffffff</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowIsFloating">false</item>

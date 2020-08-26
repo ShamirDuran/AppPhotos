@@ -4,25 +4,24 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.Serie
 import com.example.appseries.model.User
 import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
-import com.google.firebase.auth.FirebaseAuth
-import java.lang.Exception
 
 class HomeViewModel : ViewModel() {
     private val db = SeriesServices()
     private val listHelp = ArrayList<Serie>()
+    private val listHelpUser = ArrayList<User>()
     private val listSeriesHome = MutableLiveData<List<Serie>>()
+    private val listUsers = MutableLiveData<List<User>>()
 
     init {
         getSeriesFollow()
     }
 
     private fun getSeriesFollow() {
-        var user = db.getDataUser(object : Callback<User> {
+        db.getDataUser(object : Callback<User> {
             override fun onSuccess(result: User?) {
                 result?.let { user ->
                     user.follow?.let {
@@ -34,7 +33,6 @@ class HomeViewModel : ViewModel() {
             override fun onFailed(exception: Exception) {
                 Log.w("Error HomeVM", "No se consiguio info user logueado", exception)
             }
-
         })
     }
 
@@ -42,19 +40,12 @@ class HomeViewModel : ViewModel() {
         this.listSeriesHome.value = data
     }
 
-    private fun addArrayHelp(data: List<Serie>) {
-        this.listHelp.addAll(data)
-        Log.d("Mensaje", "contar")
-
-        var order = listHelp.sortedWith(compareBy<Serie> { it.day }.thenBy { it.hour }).reversed()
-        for (serie in order) {
-            Log.d("Mensaje", "${serie.day}  ${serie.hour}")
-        }
-        this.listSeriesHome.value = order
-    }
-
     fun getLiveDataSeriesHome(): LiveData<List<Serie>> {
         return this.listSeriesHome
+    }
+
+    fun getLiveDataUsers():LiveData<List<User>> {
+        return this.listUsers
     }
 
     private fun getPhotos(it: ArrayList<String>) {
@@ -62,10 +53,6 @@ class HomeViewModel : ViewModel() {
             db.getSeries(object : Callback<List<Serie>> {
                 override fun onSuccess(result: List<Serie>?) {
                     if (result != null) {
-                        Log.d(
-                            "SeriesService",
-                            "Tamaño de una traida ${result.size}"
-                        )
                         addArrayHelp(result)
                     }
                 }
@@ -77,8 +64,31 @@ class HomeViewModel : ViewModel() {
                         exception
                     )
                 }
+            }, user_follow)
+
+
+            // Obtenemos la info del los que seguimos
+            db.getDataUser(object:Callback<User>{
+                override fun onSuccess(result: User?) {
+                    if (result!=null) addArrayHelpUser(result)
+                }
+
+                override fun onFailed(exception: java.lang.Exception) {
+                    Log.w("Error HomeVM", "No se pudo obtener la data del follower $user_follow")
+                }
 
             }, user_follow)
         }
+    }
+
+    private fun addArrayHelpUser(result: User) {
+        listHelpUser.add(result)
+        listUsers.value = listHelpUser
+    }
+
+    private fun addArrayHelp(data: List<Serie>) {
+        this.listHelp.addAll(data)
+        val order = listHelp.sortedWith(compareBy<Serie> { it.day }.thenBy { it.hour }).reversed()
+        this.listSeriesHome.value = order
     }
 }

@@ -63,6 +63,10 @@ class FriendDetailDialogFragment : DialogFragment(), PostListener {
         btFollowFriend.setOnClickListener {
             btFollowClicked(friend)
         }
+
+        btReturn.setOnClickListener {
+            dismiss()
+        }
     }
 
     private fun observeViewModel() {

@@ -9,7 +9,7 @@ import com.example.appseries.model.Serie
 import com.example.appseries.network.SeriesServices
 import java.lang.Exception
 
-class SerieDetaillViewModel : ViewModel() {
+class SerieDetailViewModel : ViewModel() {
     private val db = SeriesServices()
     private var serie = MutableLiveData<Serie>()
     private val TAG = "SerieDetailDialog"

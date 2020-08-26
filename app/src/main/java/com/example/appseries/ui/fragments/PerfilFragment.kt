@@ -3,6 +3,7 @@ package com.example.appseries.ui.fragments
 import PerfilAdapter
 import android.content.Context
 import android.content.Intent
+import android.content.res.AssetManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -63,8 +64,8 @@ class PerfilFragment : Fragment(), PostListener {
         observeUserViewModel()
         observeSerieViewModel()
 
-
         userViewModel.suscribeToChanges()
+        serieViewModel.suscribeToChanges()
 
         btSignOut.setOnClickListener {
             context?.let { context ->

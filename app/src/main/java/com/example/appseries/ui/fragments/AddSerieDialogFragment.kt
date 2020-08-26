@@ -61,7 +61,7 @@ class AddSerieDialogFragment : DialogFragment() {
                     val serie = Serie(
                         "",
                         idSerie,
-                        tiNombreSerie.editText?.text.toString(),
+                        tiNombreSerie.editText?.text.toString().capitalize(),
                         tiDescripcionSerie.editText?.text.toString(),
                         filename,
                         "",

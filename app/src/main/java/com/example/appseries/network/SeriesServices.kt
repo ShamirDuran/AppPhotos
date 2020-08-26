@@ -3,17 +3,19 @@ package com.example.appseries.network
 import android.util.Log
 import com.example.appseries.adapter.RealtimeDataListener
 import com.example.appseries.data.UserSingleton
+import com.example.appseries.model.Comment
 import com.example.appseries.model.Serie
 import com.example.appseries.model.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.Query
-import java.lang.Exception
 
 const val TAG = "SeriesService"
 const val USER_COLLECTION_NAME = "users"
 const val SERIES_COLLECTION_NAME = "series"
+const val COMMENTS_COLLECTION_NAME = "comments"
 
 class SeriesServices {
     private val db = FirebaseFirestore.getInstance()
@@ -136,12 +138,16 @@ class SeriesServices {
             }
     }
 
-    fun getDataSerie(serie: Serie, callback: Callback<Serie>?) {
-        db.collection(SERIES_COLLECTION_NAME).document(serie.idSerie)
+    fun getDataSerie(serie_id: String, callback: Callback<Serie>?) {
+        db.collection(SERIES_COLLECTION_NAME).document(serie_id)
             .get()
             .addOnSuccessListener { result ->
-                val serieData: Serie = result.toObject(Serie::class.java)!!
-                callback!!.onSuccess(serieData)
+                if (result.data != null) {
+                    val serieData: Serie = result.toObject(Serie::class.java)!!
+                    callback!!.onSuccess(serieData)
+                } else {
+                    deleteRefFav(serie_id)
+                }
             }
             .addOnFailureListener { exception ->
                 callback!!.onFailed(exception)
@@ -160,11 +166,28 @@ class SeriesServices {
 
             snapshot?.let {
                 val list: List<Serie> = snapshot.toObjects(Serie::class.java)
-//                list.sortedWith(compareByDescending<Serie> { it.hour }.thenBy { it.day })
                 listener.onDataChange(list)
             }
         }
     }
+
+    fun listenForUpdateComments(post_id: String, listener: RealtimeDataListener<List<Comment>>) {
+        val commentRef = db.collection(COMMENTS_COLLECTION_NAME)
+            .whereEqualTo("post_id", post_id)
+            .orderBy("date", Query.Direction.ASCENDING)
+
+        commentRef.addSnapshotListener { snapshot, error ->
+            error?.let {
+                listener.onError(it)
+            }
+
+            snapshot?.let {
+                val list = snapshot.toObjects(Comment::class.java)
+                listener.onDataChange(list)
+            }
+        }
+    }
+
 
     fun listenForUpdatesUser(listener: RealtimeDataListener<User>) {
         val userReference = db.collection(USER_COLLECTION_NAME).document(userUID!!)
@@ -263,5 +286,51 @@ class SeriesServices {
                 .update("seriesFav", UserSingleton.getInstance().seriesFav)
                 .addOnFailureListener { Log.w(TAG, "Error al tratar de agregar a fav", it) }
         }
+    }
+
+    private fun deleteRefFav(serieId: String) {
+        db.collection(USER_COLLECTION_NAME).document(userUID!!)
+            .update("seriesFav", FieldValue.arrayRemove(serieId))
+            .addOnSuccessListener {
+                Log.d("Mensaje", "Se eliminio serie fav inexistente")
+            }
+            .addOnFailureListener {
+                Log.w("Mensaje", "Error al eliminar serie inexistente fav")
+            }
+    }
+
+    fun addComment(comment: Comment, callback: Callback<Boolean>) {
+        val comment = hashMapOf(
+            "user_id" to userUID,
+            "post_id" to comment.post_id,
+            "content" to comment.content,
+            "date" to comment.date
+        )
+
+        db.collection(COMMENTS_COLLECTION_NAME)
+            .add(comment)
+            .addOnSuccessListener {
+                callback.onSuccess(true)
+            }
+            .addOnFailureListener {
+                callback.onFailed(it)
+            }
+    }
+
+    fun getComment(postId: String, callback: Callback<List<Comment>>?) {
+        db.collection(COMMENTS_COLLECTION_NAME)
+            .whereEqualTo("post_id", postId)
+            .orderBy("date", Query.Direction.ASCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                for (doc in result) {
+                    val list = result.toObjects(Comment::class.java)
+                    callback?.onSuccess(list)
+                    break
+                }
+            }
+            .addOnFailureListener {
+                callback?.onFailed(it)
+            }
     }
 }

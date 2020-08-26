@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp">
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="8dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         app:cardCornerRadius="5dp"
-        app:cardElevation="3dp">
+        app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,15 +24,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="15dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="10dp">
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="8dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivPhotoPerfil"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
                     android:src="@drawable/photo_perfil_clean"
                     app:civ_border_color="#A3958C8C"
                     app:civ_border_width="1dp" />
@@ -54,6 +53,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/image_not_found" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/tvItemHome"
             android:layout_width="match_parent"

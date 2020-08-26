@@ -8,12 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appseries.R
 import com.example.appseries.model.Serie
+import com.example.appseries.model.User
 import com.squareup.picasso.Picasso
 
 
 class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     private val listSeries = ArrayList<Serie>()
+    private val listUser = ArrayList<User>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
@@ -28,6 +30,14 @@ class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAda
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val serie = listSeries[position]
+
+        listUser.forEach {user ->
+            if (serie.userId == user.userId) {
+                holder.username.text = user.nombre
+
+            }
+
+        }
 //
         if (serie.imageUrl != ""){
             Picasso.get().load(serie.imageUrl).into(holder.imagen)
@@ -43,8 +53,14 @@ class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAda
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imagen: ImageView = itemView.findViewById<ImageView>(R.id.ivItemHome)
         var nombre: TextView = itemView.findViewById<TextView>(R.id.tvItemHome)
-//        var username: TextView = itemView.findViewById<TextView>(R.id.tvUsername)
+        var username: TextView = itemView.findViewById<TextView>(R.id.tvUsername)
 //        var photoPerfil: ImageView = itemView.findViewById<ImageView>(R.id.ivPhotoPerfil)
+    }
+
+    fun updateListUser(data:List<User>){
+        this.listUser.clear()
+        this.listUser.addAll(data)
+        notifyDataSetChanged()
     }
 
     fun updateListSeries(data: List<Serie>) {

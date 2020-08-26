@@ -17,11 +17,9 @@ class SeriesViewModel : ViewModel() {
 
     private val db = SeriesServices()
     private val listSeries = MutableLiveData<List<Serie>>()
-    private val listSeriesFav = MutableLiveData<List<Serie>>()
 
     init {
         getSeries()
-        getSeriesFav()
     }
 
     private fun getSeries() {
@@ -38,41 +36,18 @@ class SeriesViewModel : ViewModel() {
         })
     }
 
-    private fun getSeriesFav() {
-        db.getSeriesFav(object : Callback<List<Serie>> {
-            override fun onSuccess(result: List<Serie>?) {
-                if (result != null) {
-                    setListSerieFav(result)
-                }
-            }
-
-            override fun onFailed(exception: Exception) {
-                Log.w("SerieViewModel: ", "error al usar SerieServiceFav", exception)
-            }
-        })
-    }
-
     fun getLiveDataListSeries(): LiveData<List<Serie>> {
         return listSeries
-    }
-
-    fun getLiveDataSeriesFav(): LiveData<List<Serie>> {
-        return listSeriesFav
     }
 
     private fun setListSerie(lista: List<Serie>) {
         this.listSeries.value = lista
     }
 
-    private fun setListSerieFav(lista: List<Serie>) {
-        this.listSeriesFav.value = lista
-    }
-
     fun suscribeToChanges() {
         db.listenForUpdates(object : RealtimeDataListener<List<Serie>> {
             override fun onDataChange(updatedData: List<Serie>) {
                 setListSerie(updatedData)
-                getSeriesFav()
             }
 
             override fun onError(exception: Exception) {
