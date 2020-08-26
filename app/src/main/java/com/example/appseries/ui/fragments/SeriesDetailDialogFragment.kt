@@ -133,7 +133,6 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
                     btSendComment.visibility = View.VISIBLE
                 }
             }
-
         })
 
         btSendComment.setOnClickListener { sendComment(itComment.text.toString(), serie.idSerie) }
@@ -150,7 +149,7 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
         db.getDataUser(object : Callback<User> {
             override fun onSuccess(result: User?) {
                 if (result != null) tvUserOwner.text = result.nombre
-                loadingGradient.visibility = View.INVISIBLE
+//                loadingGradient.visibility = View.INVISIBLE
                 cardComment.visibility = View.VISIBLE
             }
 

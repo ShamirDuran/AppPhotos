@@ -11,15 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appseries.R
 import com.example.appseries.model.Comment
 import com.example.appseries.model.User
+import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
 import kotlinx.android.synthetic.main.item_comment.view.*
+import java.lang.Exception
 
 class CommentsAdapter(val commentListener: CommentListener) :
     RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
 
     private var listComments = ArrayList<Comment>()
-    private var db = SeriesServices()
     private var listUser = ArrayList<User>()
+    private var db = SeriesServices()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
@@ -34,8 +36,10 @@ class CommentsAdapter(val commentListener: CommentListener) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val comment: Comment = listComments[position]
-//        val user: User = listUser[position]
-//        holder.username.text = user.nombre
+
+        val user: User = listUser[position]
+        holder.username.text = user.nombre
+
         holder.contentComment.text = comment.content
 
         holder.itemView.setOnClickListener {
@@ -49,17 +53,37 @@ class CommentsAdapter(val commentListener: CommentListener) :
         //        var photoUserComment: ImageView = itemView.findViewById(R.id.ivPhotoUserComment)
     }
 
-    fun updateListComments(data: List<Comment>) {
+    fun updateListComments(data: List<Comment>?) {
         if (data != null) {
             listComments.clear()
             listComments.addAll(data)
+            getDataUsers(data)
         }
     }
 
-    fun updateListUser(data: List<User>?) {
-        if (data != null) {
-            listUser.clear()
-            listUser.addAll(data)
+    private fun getDataUsers(data: List<Comment>) {
+
+        for (post in data) {
+            db.getDataUser(object : Callback<User> {
+                override fun onSuccess(result: User?) {
+                    if (result != null) {
+                        setListUser(result)
+                    }
+                }
+
+                override fun onFailed(exception: Exception) {
+                    Log.e("Error commentAdapter", "Error obteniendo data de user", exception)
+                }
+
+            }, post.user_id)
+        }
+
+    }
+
+    private fun setListUser(result: User) {
+        this.listUser.add(result)
+        if (listComments.size == listUser.size) {
+            Log.d("Mensaje", "Tamaño final ${listUser.size}")
             notifyDataSetChanged()
         }
     }
