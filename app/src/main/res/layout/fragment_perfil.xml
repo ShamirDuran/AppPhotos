@@ -26,6 +26,7 @@
                     android:layout_marginTop="40dp"
                     android:background="#fff"
                     android:src="@drawable/ic_settings"
+                    android:visibility="invisible"
                     android:tint="@color/grace_icon"
                     tools:ignore="ContentDescription" />
 
@@ -38,7 +39,7 @@
                     android:layout_marginEnd="40dp"
                     android:background="#fff"
                     android:src="@drawable/ic_signout"
-                    android:tint="@color/grace_icon"
+                    android:tint="@color/fav"
                     tools:ignore="ContentDescription" />
 
                 <LinearLayout
@@ -48,25 +49,27 @@
                     android:layout_gravity="center_horizontal"
                     android:orientation="vertical">
 
-
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:gravity="center_horizontal"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/ivPhotoUser"
                             android:layout_width="110dp"
                             android:layout_height="110dp"
                             android:layout_marginTop="64dp"
-                            android:src="@drawable/photo_perfil_clean" />
+                            android:src="@drawable/photo_perfil_clean"
+                            app:civ_border_color="#EDEDED"
+                            app:civ_border_width="0.8dp" />
+
                         <ImageButton
                             android:id="@+id/btChangePhoto"
-                            android:layout_below="@id/ivPhotoUser"
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/ivPhotoUser"
                             android:layout_alignEnd="@+id/ivPhotoUser"
                             android:layout_marginTop="-30dp"
-                            android:layout_height="wrap_content"
                             android:background="@drawable/ic_photo" />
                     </RelativeLayout>
 
@@ -155,6 +158,7 @@
                                 android:id="@+id/tvNumSigue"
                                 style="@style/ProfileNum"
                                 android:layout_width="match_parent"
+                                android:layout_gravity="center_horizontal"
                                 android:layout_height="wrap_content"
                                 android:text="718" />
 
@@ -179,11 +183,13 @@
 
     </androidx.core.widget.NestedScrollView>
 
-        <include
-            android:id="@+id/loadingScreenPerfil"
-            layout="@layout/loading_screen"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|center_vertical" />
+    <include
+        android:id="@+id/loadingScreenPerfil"
+        layout="@layout/loading_screen"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|center_vertical" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

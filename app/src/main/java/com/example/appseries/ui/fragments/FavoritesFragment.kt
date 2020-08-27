@@ -19,6 +19,9 @@ import com.example.appseries.model.Serie
 import com.example.appseries.viewmodel.FavoritesViewModel
 import com.example.appseries.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_favorites.*
+import java.lang.Exception
+import java.util.*
+import kotlin.concurrent.schedule
 
 class FavoritesFragment : Fragment(), PostListener {
 
@@ -33,8 +36,11 @@ class FavoritesFragment : Fragment(), PostListener {
         return inflater.inflate(R.layout.fragment_favorites, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadingScreenFav.visibility = View.VISIBLE
+
         favoritesViewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
         favoritesAdapter = FavoritesAdapter(this)
 
@@ -47,18 +53,17 @@ class FavoritesFragment : Fragment(), PostListener {
     }
 
     private fun obserceViewModel() {
-        favoritesViewModel.getLiveDataSeriesFav().observe(viewLifecycleOwner, Observer<List<Serie>> { series ->
-            series.let {
-                favoritesAdapter.updateSeriesFav(it)
-            }
-
-            // Muestra un mensaje avisando que no hya nada
-            if (series.size != 0){
-                rvFav.visibility = View.VISIBLE
-            } else {
-                rvFav.visibility = View.INVISIBLE
-            }
-        })
+        favoritesViewModel.getLiveDataSeriesFav()
+            .observe(viewLifecycleOwner, Observer<List<Serie>> { series ->
+                series.let {
+                    favoritesAdapter.updateSeriesFav(it)
+                    Timer().schedule(500) {
+                        try {
+                            loadingScreenFav.visibility = View.INVISIBLE
+                        } catch (e: Exception){}
+                    }
+                }
+            })
     }
 
     override fun onPostClicked(serie: Serie, position: Int) {

@@ -30,6 +30,7 @@
             android:id="@+id/tiSearchFriendsRef"
             android:background="@drawable/rounded_comment"
             android:imeOptions="actionSearch"
+            android:backgroundTint="@color/fondoGrisEdit"
             android:hint="Search..."
             android:paddingHorizontal="12dp"
             android:inputType="text"/>

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -55,8 +56,10 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
         return inflater.inflate(R.layout.fragment_series_detail_dialog, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadingGradient.visibility = View.VISIBLE
 
         commentViewModel = ViewModelProvider(this).get(CommentsViewModel::class.java)
         commentAdapter = CommentsAdapter(this)
@@ -113,21 +116,21 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
             changeIconButtonFav()
         }
 
+
         itComment.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (itComment.text == null) {
-                    btSendComment.visibility = View.VISIBLE
-                }
+
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p3 == 0) {
                     // si esta vacio oculte el boton
                     btSendComment.visibility = View.INVISIBLE
+                    itComment.hint = "Comment..."
                 } else {
                     // si contiene algo muestre boton de send
                     btSendComment.visibility = View.VISIBLE
@@ -146,13 +149,14 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
     }
 
     private fun getUserInfo(id_user: String) {
+        loadingGradient.visibility = View.VISIBLE
         db.getDataUser(object : Callback<User> {
             override fun onSuccess(result: User?) {
                 if (result != null) {
                     if (result.photo != "") Picasso.get().load(result.photo).into(ivPhotoOwner)
                     tvUserOwner.text = result.nombre
                 }
-//                loadingGradient.visibility = View.INVISIBLE
+                loadingGradient.visibility = View.INVISIBLE
                 cardComment.visibility = View.VISIBLE
             }
 

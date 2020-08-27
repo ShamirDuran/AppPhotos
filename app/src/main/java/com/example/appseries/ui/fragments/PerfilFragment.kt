@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -38,6 +39,7 @@ import kotlinx.android.synthetic.main.loading_screen.*
 import kotlinx.android.synthetic.main.rv_perfil.*
 import java.lang.Exception
 import java.util.*
+import kotlin.concurrent.schedule
 
 class PerfilFragment : Fragment(), PostListener {
 
@@ -49,6 +51,7 @@ class PerfilFragment : Fragment(), PostListener {
     private val storageServices = StorageServices()
     private var selectedPhoroUri: Uri? = null
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,7 +62,7 @@ class PerfilFragment : Fragment(), PostListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBarPerfil.visibility = View.INVISIBLE
+        loadingScreenPerfil.visibility = View.VISIBLE
 
         userViewModel = ViewModelProvider(this).get(UsersViewModel::class.java)
         serieViewModel = ViewModelProvider(this).get(SeriesViewModel::class.java)
@@ -128,7 +131,13 @@ class PerfilFragment : Fragment(), PostListener {
                     } else {
                         ivPhotoUser.setImageResource(R.drawable.photo_perfil_clean)
                     }
-                    loadingScreenPerfil.visibility = View.INVISIBLE
+
+                    Timer().schedule(800) {
+                        try {
+                            loadingScreenPerfil.visibility = View.INVISIBLE
+                        } catch (e: Exception) {
+                        }
+                    }
                 }
             })
     }

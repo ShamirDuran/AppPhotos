@@ -60,6 +60,7 @@ class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAda
         this.listUser.clear()
         this.listUser.addAll(data)
         notifyDataSetChanged()
+
     }
 
     fun updateListSeries(data: List<Serie>) {

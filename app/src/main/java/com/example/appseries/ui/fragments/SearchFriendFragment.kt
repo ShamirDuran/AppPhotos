@@ -41,8 +41,6 @@ class SearchFriendFragment : Fragment(), SearchListener {
         return inflater.inflate(R.layout.fragment_search_friend, container, false)
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
