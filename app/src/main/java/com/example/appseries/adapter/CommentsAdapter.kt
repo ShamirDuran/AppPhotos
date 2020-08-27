@@ -13,6 +13,7 @@ import com.example.appseries.model.Comment
 import com.example.appseries.model.User
 import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_comment.view.*
 import java.lang.Exception
 
@@ -37,8 +38,13 @@ class CommentsAdapter(val commentListener: CommentListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val comment: Comment = listComments[position]
 
-        val user: User = listUser[position]
-        holder.username.text = user.nombre
+        try {
+            val user: User = listUser[position]
+            holder.username.text = user.nombre
+            if (user.photo!="") Picasso.get().load(user.photo).into(holder.photoUserComment)
+        } catch (e: Exception) {
+            Log.e("Error commentAdapter", "Error tamaño de listaUser", e)
+        }
 
         holder.contentComment.text = comment.content
 
@@ -50,19 +56,19 @@ class CommentsAdapter(val commentListener: CommentListener) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var username: TextView = itemView.findViewById(R.id.tvUsernameComment)
         var contentComment: TextView = itemView.findViewById(R.id.tvContentComment)
-        //        var photoUserComment: ImageView = itemView.findViewById(R.id.ivPhotoUserComment)
+        var photoUserComment: ImageView = itemView.findViewById(R.id.ivPhotoUserComment)
     }
 
     fun updateListComments(data: List<Comment>?) {
         if (data != null) {
             listComments.clear()
             listComments.addAll(data)
+            listUser.clear()
             getDataUsers(data)
         }
     }
 
     private fun getDataUsers(data: List<Comment>) {
-
         for (post in data) {
             db.getDataUser(object : Callback<User> {
                 override fun onSuccess(result: User?) {
@@ -77,13 +83,13 @@ class CommentsAdapter(val commentListener: CommentListener) :
 
             }, post.user_id)
         }
-
     }
 
     private fun setListUser(result: User) {
         this.listUser.add(result)
         if (listComments.size == listUser.size) {
-            Log.d("Mensaje", "Tamaño final ${listUser.size}")
+            Log.d("Mensaje", "Tamaño listUser ${listUser.size}")
+            Log.d("Mensaje", "Tamaño listComments ${listComments.size}")
             notifyDataSetChanged()
         }
     }

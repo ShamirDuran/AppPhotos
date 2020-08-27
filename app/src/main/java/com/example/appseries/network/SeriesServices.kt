@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.Query
+import java.lang.Exception
 
 const val TAG = "SeriesService"
 const val USER_COLLECTION_NAME = "users"
@@ -331,6 +332,21 @@ class SeriesServices {
             }
             .addOnFailureListener {
                 callback?.onFailed(it)
+            }
+    }
+
+    fun uploadPhotoUser(photoId: String, url: String) {
+        val userData = hashMapOf(
+            "photo" to url,
+            "photoId" to photoId
+        )
+        db.collection(USER_COLLECTION_NAME).document(userUID!!)
+            .update(userData as Map<String, Any>)
+            .addOnSuccessListener {
+                Log.d("SeriesServices", "Foto perfil actualizada correctamente")
+            }
+            .addOnFailureListener {
+                Log.w("SeriesServices", "Error al subir la foto de perfil", it)
             }
     }
 }

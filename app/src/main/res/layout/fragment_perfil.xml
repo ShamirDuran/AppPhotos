@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -47,13 +48,27 @@
                     android:layout_gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivPhotoUser"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="65dp"
-                        android:src="@drawable/photo_perfil_clean" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:gravity="center_horizontal"
+                        android:layout_height="wrap_content">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivPhotoUser"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_marginTop="64dp"
+                            android:src="@drawable/photo_perfil_clean" />
+                        <ImageButton
+                            android:id="@+id/btChangePhoto"
+                            android:layout_below="@id/ivPhotoUser"
+                            android:layout_width="wrap_content"
+                            android:layout_alignEnd="@+id/ivPhotoUser"
+                            android:layout_marginTop="-30dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_photo" />
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/tvNombreUsuario"
@@ -164,11 +179,11 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <include
-        android:id="@+id/rvasd"
-        layout="@layout/loading_screen"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal|center_vertical" />
+        <include
+            android:id="@+id/loadingScreenPerfil"
+            layout="@layout/loading_screen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

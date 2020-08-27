@@ -22,7 +22,6 @@ class AddSerieDialogFragment : DialogFragment() {
 
     private val storageServ = StorageServices()
     private var selectedPhotoUri: Uri? = null
-
     private val filename = UUID.randomUUID().toString()
     private val idSerie = UUID.randomUUID().toString()
 

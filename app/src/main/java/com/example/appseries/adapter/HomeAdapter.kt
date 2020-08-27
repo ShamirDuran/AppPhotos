@@ -31,21 +31,20 @@ class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAda
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val serie = listSeries[position]
 
-        listUser.forEach {user ->
+        listUser.forEach { user ->
             if (serie.userId == user.userId) {
                 holder.username.text = user.nombre
-
+                if (user.photo != "") Picasso.get().load(user.photo).into(holder.photoPerfil)
             }
-
         }
 //
-        if (serie.imageUrl != ""){
+        if (serie.imageUrl != "") {
             Picasso.get().load(serie.imageUrl).into(holder.imagen)
         }
 
         holder.nombre.text = serie.nombre
 
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             postListener.onPostClicked(serie, position)
         }
     }
@@ -54,10 +53,10 @@ class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAda
         var imagen: ImageView = itemView.findViewById<ImageView>(R.id.ivItemHome)
         var nombre: TextView = itemView.findViewById<TextView>(R.id.tvItemHome)
         var username: TextView = itemView.findViewById<TextView>(R.id.tvUsername)
-//        var photoPerfil: ImageView = itemView.findViewById<ImageView>(R.id.ivPhotoPerfil)
+        var photoPerfil: ImageView = itemView.findViewById<ImageView>(R.id.ivPhotoPerfil)
     }
 
-    fun updateListUser(data:List<User>){
+    fun updateListUser(data: List<User>) {
         this.listUser.clear()
         this.listUser.addAll(data)
         notifyDataSetChanged()

@@ -1,9 +1,11 @@
 package com.example.appseries.ui.fragments
 
 import PerfilAdapter
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +22,13 @@ import com.example.appseries.data.MessageFactory
 import com.example.appseries.model.Serie
 import com.example.appseries.model.User
 import com.example.appseries.network.Callback
+import com.example.appseries.network.StorageServices
 import com.example.appseries.ui.activities.LoginActivity
 import com.example.appseries.viewmodel.SeriesViewModel
 import com.example.appseries.viewmodel.UsersViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_add_serie_dialog.*
 import kotlinx.android.synthetic.main.fragment_perfil.*
 import kotlinx.android.synthetic.main.fragment_perfil.tvNombreUsuario
 import kotlinx.android.synthetic.main.fragment_perfil.tvNumPhotosUploaded
@@ -32,13 +37,17 @@ import kotlinx.android.synthetic.main.fragment_perfil.tvNumSigue
 import kotlinx.android.synthetic.main.loading_screen.*
 import kotlinx.android.synthetic.main.rv_perfil.*
 import java.lang.Exception
+import java.util.*
 
 class PerfilFragment : Fragment(), PostListener {
 
     private val auth = FirebaseAuth.getInstance()
+
     private lateinit var perfilAdapter: PerfilAdapter
     private lateinit var userViewModel: UsersViewModel
     private lateinit var serieViewModel: SeriesViewModel
+    private val storageServices = StorageServices()
+    private var selectedPhoroUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +80,12 @@ class PerfilFragment : Fragment(), PostListener {
             context?.let { context ->
                 signOutDialog(context)
             }
+        }
+
+        btChangePhoto.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 0)
         }
     }
 
@@ -108,7 +123,12 @@ class PerfilFragment : Fragment(), PostListener {
                     tvNumSeguidores.text = user.followers?.size.toString()
                     tvNumSigue.text = user.follow?.size.toString()
                     tvNumPhotosUploaded.text = user.photosUploaded.toString()
-                    gradientPerfil.visibility = View.INVISIBLE
+                    if (it.photo != "") {
+                        Picasso.get().load(it.photo).into(ivPhotoUser)
+                    } else {
+                        ivPhotoUser.setImageResource(R.drawable.photo_perfil_clean)
+                    }
+                    loadingScreenPerfil.visibility = View.INVISIBLE
                 }
             })
     }
@@ -116,5 +136,14 @@ class PerfilFragment : Fragment(), PostListener {
     override fun onPostClicked(serie: Serie, position: Int) {
         val bundle = bundleOf("serie" to serie)
         findNavController().navigate(R.id.serieDetailFragmentDialog, bundle)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
+            selectedPhoroUri = data.data
+            storageServices.uploadImageToFirebase(UUID.randomUUID().toString(), selectedPhoroUri)
+        }
     }
 }

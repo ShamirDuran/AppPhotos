@@ -148,7 +148,10 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
     private fun getUserInfo(id_user: String) {
         db.getDataUser(object : Callback<User> {
             override fun onSuccess(result: User?) {
-                if (result != null) tvUserOwner.text = result.nombre
+                if (result != null) {
+                    if (result.photo != "") Picasso.get().load(result.photo).into(ivPhotoOwner)
+                    tvUserOwner.text = result.nombre
+                }
 //                loadingGradient.visibility = View.INVISIBLE
                 cardComment.visibility = View.VISIBLE
             }
