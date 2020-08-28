@@ -11,9 +11,9 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_repassword">Repeat password</string>
-    <string name="action_sign_in">Sign</string>
-    <string name="dont_have_account">Don\'t have account</string>
-    <string name="action_register">Register</string>
+    <string name="action_sign_in">Login</string>
+    <string name="dont_have_account">Registrarme</string>
+    <string name="action_register">Registrar</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="first_name_user">Your name</string>

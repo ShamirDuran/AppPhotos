@@ -1,6 +1,7 @@
 package com.example.appseries.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -52,6 +53,7 @@ class FavoritesFragment : Fragment(), PostListener {
     }
 
     private fun obserceViewModel() {
+        Log.d("Mensaje", "entrooo")
         favoritesViewModel.getLiveDataSeriesFav()
             .observe(viewLifecycleOwner, Observer<List<Serie>> { series ->
                 series.let {
@@ -65,6 +67,7 @@ class FavoritesFragment : Fragment(), PostListener {
                     loadingScreenFav.visibility = View.INVISIBLE
                 }
                 loadingScreenFav.visibility = View.INVISIBLE
+                Log.d("Mensaje", "entrooo2")
             })
     }
 
