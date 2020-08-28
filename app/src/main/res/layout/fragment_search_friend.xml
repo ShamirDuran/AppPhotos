@@ -11,29 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="20dp"
         android:paddingHorizontal="10dp"
+        android:paddingTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="27dp"
-            android:layout_height="27dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="4dp"
-            android:src="@drawable/ic_search"/>
+            android:src="@drawable/image_search" />
 
         <EditText
+            android:id="@+id/tiSearchFriendsRef"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/tiSearchFriendsRef"
             android:background="@drawable/rounded_comment"
-            android:imeOptions="actionSearch"
             android:backgroundTint="@color/fondoGrisEdit"
             android:hint="Search..."
-            android:paddingHorizontal="12dp"
-            android:inputType="text"/>
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingHorizontal="12dp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -43,4 +43,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutAppBar" />
+
+    <ImageView
+        android:id="@+id/ivFindFriend"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/image_find_friend"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMensaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Busca a tus amigos"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivFindFriend" />
 </androidx.constraintlayout.widget.ConstraintLayout>

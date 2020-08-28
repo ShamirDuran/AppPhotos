@@ -52,10 +52,12 @@ class SearchFriendFragment : Fragment(), SearchListener {
             adapter = searchUserAdapter
         }
 
+        //oculta el teclado
         tiSearchFriendsRef.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 performSearch()
-                val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
                 return@OnEditorActionListener true
             }
@@ -63,6 +65,7 @@ class SearchFriendFragment : Fragment(), SearchListener {
         })
     }
 
+    // realiza la busqueda
     private fun performSearch() {
         val ref = tiSearchFriendsRef.text.toString().capitalize()
 
@@ -91,9 +94,16 @@ class SearchFriendFragment : Fragment(), SearchListener {
     private fun observerViewModel() {
         searchViewModel.getLiveListUsers()
             .observe(viewLifecycleOwner, Observer<List<User>> { users ->
-                users.let {
+                if (users.isNotEmpty()) {
                     searchUserAdapter.updateListUser(users)
+                    ivFindFriend.visibility = View.INVISIBLE
+                    tvMensaje.visibility = View.INVISIBLE
+                } else {
+                    ivFindFriend.visibility = View.VISIBLE
+                    tvMensaje.visibility = View.VISIBLE
+                    Toast.makeText(context, "No encontramos nada, intente nuevamente", Toast.LENGTH_SHORT).show()
                 }
+
             })
     }
 }

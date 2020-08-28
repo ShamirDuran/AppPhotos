@@ -35,6 +35,8 @@ class SearchUserAdapter(val listener: SearchListener) :
 
         if (user.photo != "") {
             Picasso.get().load(user.photo).into(holder.photoUser)
+        } else {
+            holder.photoUser.setImageResource(R.drawable.photo_perfil_clean)
         }
 
         holder.itemView.setOnClickListener {

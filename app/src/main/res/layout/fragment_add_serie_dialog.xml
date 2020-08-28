@@ -6,96 +6,120 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.AddSerieDialogFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <Toolbar
-            android:id="@+id/toolbarAddSerieDialogFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/home">
-
-            <TextView
-                style="@style/TextoAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="New Serie" />
-        </Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <ImageButton
+            android:id="@+id/btCloseAddSerie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:padding="30dp">
+            android:layout_marginBottom="6dp"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/ic_return"
+            android:tint="@color/fav" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tiNombreSerie"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <TextView
+            style="@style/TitleSerie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="28dp"
+            android:layout_marginBottom="25dp"
+            android:fontFamily="sans-serif-condensed-light"
+            android:text="Subir nueva foto"
+            android:textSize="25sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Name"
-                app:boxStrokeColor="@color/home"
-                app:hintTextColor="@color/homeDark">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="30dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+
+                    <ImageView
+                        android:id="@+id/ivSelectImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp"
+                        android:background="@drawable/rounded_item"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/image_not_found" />
+
+                    <ImageButton
+                        android:id="@+id/btSelectImage"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_gravity="end|bottom"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="@drawable/ic_add_photo"
+                        android:backgroundTint="@color/fav"
+                        android:tint="@color/fav" />
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tiNombreSerie"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:hint="Título"
+                    app:boxStrokeColor="@color/fav"
+                    app:hintTextColor="@color/fav">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tiDescripcionSerie"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:hint="Description"
-                app:boxStrokeColor="@color/home"
-                app:hintTextColor="@color/homeDark">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:backgroundTint="#fff" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tiDescripcionSerie"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:hint="Descrición (opcional)"
+                    app:boxStrokeColor="@color/fav"
+                    app:hintTextColor="@color/fav">
 
-            <CheckBox
-                android:id="@+id/cbFavSerie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Favorite"
-                android:textSize="15sp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:backgroundTint="#fff" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/btSelectImage"
-                android:layout_width="wrap_content"
-                android:backgroundTint="@color/fav"
-                android:layout_height="wrap_content"
-                android:text="select photo" />
+                <CheckBox
+                    android:id="@+id/cbFavSerie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Agregar a favoritos"
+                    android:textSize="15sp" />
 
-            <ImageView
-                android:id="@+id/ivSelectImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btAddSerie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:backgroundTint="@color/home"
+                    android:text="SUBIR"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    app:icon="@drawable/ic_add" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/btAddSerie"
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:backgroundTint="@color/home"
-                android:text="ADD SERIE"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                app:icon="@drawable/ic_add" />
-        </LinearLayout>
-    </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

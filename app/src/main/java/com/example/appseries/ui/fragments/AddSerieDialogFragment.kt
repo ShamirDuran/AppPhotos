@@ -45,9 +45,7 @@ class AddSerieDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbarAddSerieDialogFragment.navigationIcon =
-            ContextCompat.getDrawable(view.context, R.drawable.ic_close)
-        toolbarAddSerieDialogFragment.setNavigationOnClickListener {
+        btCloseAddSerie.setOnClickListener {
             dismiss()
         }
 
@@ -55,7 +53,7 @@ class AddSerieDialogFragment : DialogFragment() {
             var isFav = false
             if (cbFavSerie.isChecked) isFav = true
 
-            if (tiNombreSerie.editText?.text.toString() != "" && tiDescripcionSerie.editText?.text.toString() != ""){
+            if (tiNombreSerie.editText?.text.toString() != ""){
                 if (selectedPhotoUri != null) {
                     val serie = Serie(
                         "",

@@ -1,11 +1,9 @@
 package com.example.appseries.viewmodel
 
 import android.util.Log
-import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.appseries.adapter.PostListener
 import com.example.appseries.adapter.RealtimeDataListener
 import com.example.appseries.model.Serie
 import com.example.appseries.network.Callback
@@ -17,7 +15,7 @@ class FriendViewModel : ViewModel() {
     private val listPost = MutableLiveData<List<Serie>>()
 
     fun getDataPosts(userID: String) {
-        db.getSeries(object : Callback<List<Serie>> {
+        db.getMySeries(object : Callback<List<Serie>> {
             override fun onSuccess(result: List<Serie>?) {
                 setDataPosts(result)
             }

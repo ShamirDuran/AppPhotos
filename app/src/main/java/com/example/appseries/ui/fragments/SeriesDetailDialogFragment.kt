@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -34,11 +33,12 @@ import com.example.appseries.viewmodel.SerieDetailViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_series_detail_dialog.*
 
-class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
+class SeriesDetailDialogFragment() : DialogFragment(), CommentListener {
 
     private val db = SeriesServices()
     private val storageServ = StorageServices()
     private var isFav: Boolean = false
+    private var userOwner: User? = null
     private lateinit var serieDetaillViewModel: SerieDetailViewModel
     private lateinit var commentViewModel: CommentsViewModel
     private lateinit var commentAdapter: CommentsAdapter
@@ -77,7 +77,11 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
         commentViewModel.getComments()
 
         // Se comprueba si el post esta agregado como favorito
-        isFav = UserSingleton.getInstance().seriesFav.contains(serie.idSerie)
+        if (UserSingleton.getInstance().seriesFav != null) {
+            isFav = UserSingleton.getInstance().seriesFav!!.contains(serie.idSerie)
+        } else {
+            isFav = false
+        }
 
         changeIconButtonFav()
 
@@ -106,8 +110,9 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
             }
         }
 
-        btCloseSerieDetail.setOnClickListener { dismiss() }
-
+        btCloseSerieDetail.setOnClickListener {
+            dismiss()
+        }
         btEditSerie.setOnClickListener { onEditSerieClicked(serie) }
 
         btAddFav.setOnClickListener {
@@ -116,15 +121,10 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
             changeIconButtonFav()
         }
 
-
         itComment.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
+            override fun afterTextChanged(p0: Editable?) {}
 
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p3 == 0) {
@@ -140,12 +140,16 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
 
         btSendComment.setOnClickListener { sendComment(itComment.text.toString(), serie.idSerie) }
 
+        infoUserOwner.setOnClickListener {
+            val bundle = bundleOf("friend" to userOwner)
+            findNavController().navigate(R.id.friendDetaildialogFragment, bundle)
+        }
+
         observeSerieDetailViewModel()
         observeCommentViewModel()
 
         serieDetaillViewModel.suscribeToChanges()
         commentViewModel.suscribeToChanges()
-
     }
 
     private fun getUserInfo(id_user: String) {
@@ -154,6 +158,7 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
             override fun onSuccess(result: User?) {
                 if (result != null) {
                     if (result.photo != "") Picasso.get().load(result.photo).into(ivPhotoOwner)
+                    setUserOwner(result)
                     tvUserOwner.text = result.nombre
                 }
                 loadingGradient.visibility = View.INVISIBLE
@@ -240,4 +245,9 @@ class SeriesDetailDialogFragment : DialogFragment(), CommentListener {
                 }
             })
     }
+
+    private fun setUserOwner(dataUser: User) {
+        this.userOwner = dataUser
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.example.appseries.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -13,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appseries.R
 import com.example.appseries.adapter.HomeAdapter
 import com.example.appseries.adapter.PostListener
-import com.example.appseries.data.UserSingleton
 import com.example.appseries.model.Serie
 import com.example.appseries.model.User
-import com.example.appseries.network.Callback
 import com.example.appseries.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -55,6 +52,14 @@ class HomeFragment : Fragment(), PostListener {
             .observe(viewLifecycleOwner, Observer<List<Serie>> { series ->
                 series.let {
                     seriesAdapter.updateListSeries(it)
+                }
+
+                if (series.isNotEmpty()){
+                    ivImage.visibility = View.INVISIBLE
+                    tvMensaje.visibility = View.INVISIBLE
+                } else {
+                    ivImage.visibility = View.VISIBLE
+                    tvMensaje.visibility = View.VISIBLE
                 }
             })
 

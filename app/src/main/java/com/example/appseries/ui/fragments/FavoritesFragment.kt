@@ -1,7 +1,7 @@
 package com.example.appseries.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appseries.R
 import com.example.appseries.adapter.FavoritesAdapter
 import com.example.appseries.adapter.PostListener
@@ -57,12 +56,15 @@ class FavoritesFragment : Fragment(), PostListener {
             .observe(viewLifecycleOwner, Observer<List<Serie>> { series ->
                 series.let {
                     favoritesAdapter.updateSeriesFav(it)
-                    Timer().schedule(500) {
-                        try {
-                            loadingScreenFav.visibility = View.INVISIBLE
-                        } catch (e: Exception){}
-                    }
+                    loadingScreenFav.visibility = View.INVISIBLE
                 }
+                if (!series.isNullOrEmpty()) {
+                    tvMensaje.visibility = View.INVISIBLE
+                } else {
+                    tvMensaje.visibility = View.VISIBLE
+                    loadingScreenFav.visibility = View.INVISIBLE
+                }
+                loadingScreenFav.visibility = View.INVISIBLE
             })
     }
 

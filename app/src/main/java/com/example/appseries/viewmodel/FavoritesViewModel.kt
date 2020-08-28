@@ -15,19 +15,18 @@ class FavoritesViewModel : ViewModel() {
 
     private val db = SeriesServices()
     private val listFavorites = MutableLiveData<List<Serie>>()
-    private val listHelp = ArrayList<Serie>();
 
     init {
         getSeriesFav()
     }
 
-    private fun getSeriesFav() {
 
+    fun getSeriesFav() {
         db.getDataUser(object : Callback<User> {
             override fun onSuccess(result: User?) {
                 result?.seriesFav.let { favorites ->
                     favorites?.let {
-                        getSeries(it)
+                        getSeries()
                     }
                 }
             }
@@ -38,33 +37,27 @@ class FavoritesViewModel : ViewModel() {
         })
     }
 
-    private fun getSeries(it: ArrayList<String>) {
-        for (post in it) {
-            db.getDataSerie(post, object : Callback<Serie> {
-                override fun onSuccess(result: Serie?) {
-                    result?.let {
-                        addListHelp(it)
-                    }
+    private fun getSeries() {
+        db.getSeriesFav(object : Callback<List<Serie>> {
+            override fun onSuccess(result: List<Serie>?) {
+                result?.let {
+                    setListSeriesFav(it)
                 }
+            }
 
-                override fun onFailed(exception: Exception) {
-                    Log.d("Error", "Error al obtener serie fav", exception)
-                }
-            })
-        }
+            override fun onFailed(exception: Exception) {
+                Log.d("Error", "Error al obtener serie fav", exception)
+            }
+        })
+
     }
 
-    private fun addListHelp(serie: Serie) {
-        this.listHelp.add(serie)
-        val order = listHelp.sortedWith(compareBy<Serie> { it.day }.thenBy { it.hour }).reversed()
-        this.listFavorites.value = order
-    }
-
-    fun getLiveDataSeriesFav():LiveData<List<Serie>> {
+    fun getLiveDataSeriesFav(): LiveData<List<Serie>> {
         return this.listFavorites
     }
 
-    fun setListSeriesFav(data : ArrayList<Serie>){
+    fun setListSeriesFav(data: List<Serie>) {
         this.listFavorites.value = data
     }
+
 }

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,7 +25,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/ic_return"
-                    android:backgroundTint="@color/fav"/>
+                    android:backgroundTint="@color/fav" />
 
                 <LinearLayout
                     android:id="@+id/headerPerfil"
@@ -37,7 +39,9 @@
                         android:layout_height="110dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="65dp"
-                        android:src="@drawable/photo_perfil_clean" />
+                        android:src="@drawable/photo_perfil_clean"
+                        app:civ_border_color="#EDEDED"
+                        app:civ_border_width="0.8dp" />
 
                     <TextView
                         android:id="@+id/tvNombreUsuario"
@@ -134,16 +138,37 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.8dp"
+                        android:layout_height="1dp"
                         android:layout_marginVertical="25dp"
                         android:background="#EDEDED" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvFriendPost"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="9dp"
-                        android:nestedScrollingEnabled="false" />
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvFriendPost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="9dp"
+                            android:nestedScrollingEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvMensaje"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text="No hay fotos"
+                            android:layout_marginTop="20dp"
+                            android:textSize="20sp"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </FrameLayout>

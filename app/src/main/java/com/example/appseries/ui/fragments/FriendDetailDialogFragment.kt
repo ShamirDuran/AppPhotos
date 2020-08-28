@@ -18,6 +18,7 @@ import com.example.appseries.model.Serie
 import com.example.appseries.model.User
 import com.example.appseries.network.SeriesServices
 import com.example.appseries.viewmodel.FriendViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_friend_detail_dialog.*
 
 class FriendDetailDialogFragment : DialogFragment(), PostListener {
@@ -75,6 +76,8 @@ class FriendDetailDialogFragment : DialogFragment(), PostListener {
                 series.let {
                     friendAdapter.updateListPost(it)
                 }
+                if (series.isEmpty()) tvMensaje.visibility = View.VISIBLE
+                else tvMensaje.visibility = View.INVISIBLE
             })
     }
 
@@ -114,6 +117,7 @@ class FriendDetailDialogFragment : DialogFragment(), PostListener {
             btFollowFriend.setImageResource(R.drawable.ic_follow)
         }
 
+        if (friend.photo != "") Picasso.get().load(friend.photo).into(ivPhotoUser)
         tvNombreUsuario.text = friend.nombre
         tvNumPhotosUploaded.text = friend.photosUploaded.toString()
         tvNumSeguidores.text = friend.followers?.size.toString()

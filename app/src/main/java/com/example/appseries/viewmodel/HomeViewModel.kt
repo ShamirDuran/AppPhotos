@@ -11,21 +11,19 @@ import com.example.appseries.network.SeriesServices
 
 class HomeViewModel : ViewModel() {
     private val db = SeriesServices()
-    private val listHelp = ArrayList<Serie>()
-    private val listHelpUser = ArrayList<User>()
     private val listSeriesHome = MutableLiveData<List<Serie>>()
     private val listUsers = MutableLiveData<List<User>>()
 
     init {
-        getSeriesFollow()
+        getSeriesFriends()
     }
 
-    private fun getSeriesFollow() {
+    fun getSeriesFriends() {
         db.getDataUser(object : Callback<User> {
             override fun onSuccess(result: User?) {
                 result?.let { user ->
                     user.follow?.let {
-                        getPhotos(it)
+                        getPhotos()
                     }
                 }
             }
@@ -36,7 +34,21 @@ class HomeViewModel : ViewModel() {
         })
     }
 
-    private fun setListSeriesHome(data: ArrayList<Serie>) {
+    fun getAllSeries() {
+        db.getAllSeries(object :Callback<List<Serie>>{
+            override fun onSuccess(result: List<Serie>?) {
+                result?.let {
+                    setListSeriesHome(it)
+                }
+            }
+
+            override fun onFailed(exception: Exception) {
+                Log.w("Error HomeVM", "Errro al traer todas los post", exception)
+            }
+        })
+    }
+
+    private fun setListSeriesHome(data: List<Serie>) {
         this.listSeriesHome.value = data
     }
 
@@ -44,51 +56,32 @@ class HomeViewModel : ViewModel() {
         return this.listSeriesHome
     }
 
-    fun getLiveDataUsers():LiveData<List<User>> {
+    fun getLiveDataUsers(): LiveData<List<User>> {
         return this.listUsers
     }
 
-    private fun getPhotos(it: ArrayList<String>) {
-        for (user_follow in it) {
-            db.getSeries(object : Callback<List<Serie>> {
-                override fun onSuccess(result: List<Serie>?) {
-                    if (result != null) {
-                        addArrayHelp(result)
-                    }
-                }
+    private fun getPhotos() {
+        db.getFollowSeries(object : Callback<List<Serie>> {
+            override fun onSuccess(result: List<Serie>?) {
+                if (result != null) setListSeriesHome(result)
+            }
 
-                override fun onFailed(exception: Exception) {
-                    Log.w(
-                        "Error HomeVM",
-                        "No se obtuvo la lsita de seguidores para user logueado",
-                        exception
-                    )
-                }
-            }, user_follow)
+            override fun onFailed(exception: Exception) {
+                Log.w("Error HomeVM", "No se obtuvo series amgios", exception)
+            }
+        })
 
+        // Obtenemos la info del los que seguimos
+        db.getDataFollow(object : Callback<List<User>> {
+            override fun onSuccess(result: List<User>?) {
+                if (result != null) listUsers.value = result
+            }
 
-            // Obtenemos la info del los que seguimos
-            db.getDataUser(object:Callback<User>{
-                override fun onSuccess(result: User?) {
-                    if (result!=null) addArrayHelpUser(result)
-                }
-
-                override fun onFailed(exception: java.lang.Exception) {
-                    Log.w("Error HomeVM", "No se pudo obtener la data del follower $user_follow")
-                }
-
-            }, user_follow)
-        }
-    }
-
-    private fun addArrayHelpUser(result: User) {
-        listHelpUser.add(result)
-        listUsers.value = listHelpUser
-    }
-
-    private fun addArrayHelp(data: List<Serie>) {
-        this.listHelp.addAll(data)
-        val order = listHelp.sortedWith(compareBy<Serie> { it.day }.thenBy { it.hour }).reversed()
-        this.listSeriesHome.value = order
+            override fun onFailed(exception: java.lang.Exception) {
+                Log.w("Error HomeVM", "No se pudo obtener la data del follower")
+            }
+        })
     }
 }
+
+

@@ -28,7 +28,22 @@ class SeriesServices {
         db.firestoreSettings = settins
     }
 
-    fun getSeries(callback: Callback<List<Serie>>?, userID: String = userUID!!) {
+    fun getAllSeries(callback: Callback<List<Serie>>?) {
+        db.collection(SERIES_COLLECTION_NAME)
+            .orderBy("day", Query.Direction.DESCENDING)
+            .orderBy("hour", Query.Direction.DESCENDING).get()
+            .addOnSuccessListener { result ->
+                result?.let {
+                    val list = it.toObjects(Serie::class.java)
+                    callback?.onSuccess(list)
+                }
+            }
+            .addOnFailureListener {exception ->
+                callback?.onFailed(exception)
+            }
+    }
+
+    fun getMySeries(callback: Callback<List<Serie>>?, userID: String = userUID!!) {
         db.collection(SERIES_COLLECTION_NAME)
             .whereEqualTo("userId", userID)
             .orderBy("day", Query.Direction.DESCENDING)
@@ -38,7 +53,6 @@ class SeriesServices {
                 for (doc in result) {
                     Log.d(TAG, "UserID : $userID")
                     val list = result.toObjects(Serie::class.java)
-//                    list.sortedWith(compareByDescending<Serie> { it.hour }.thenBy { it.day })
                     callback!!.onSuccess(list)
                     break
                 }
@@ -48,24 +62,50 @@ class SeriesServices {
             }
     }
 
-    fun getSeriesFav(callback: Callback<List<Serie>>?) {
-        db.collection(SERIES_COLLECTION_NAME)
-            .whereEqualTo("userId", userUID)
-            .whereEqualTo("fav", true)
-            .orderBy("day", Query.Direction.DESCENDING)
-            .orderBy("hour", Query.Direction.DESCENDING)
-            .get()
-            .addOnSuccessListener { result ->
-                for (doc in result) {
-                    val list = result.toObjects(Serie::class.java)
-//                    list = list.sortedWith(compareByDescending<Serie> { it.hour }.thenBy { it.day })
-                    callback!!.onSuccess(list)
-                    break
+    fun getFollowSeries(callback: Callback<List<Serie>>?) {
+        if (!UserSingleton.getInstance().follow.isNullOrEmpty()) {
+            db.collection(SERIES_COLLECTION_NAME)
+                .whereIn("userId", UserSingleton.getInstance().follow!!.toList())
+                .orderBy("day", Query.Direction.DESCENDING)
+                .orderBy("hour", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (doc in result) {
+                        val list = result.toObjects(Serie::class.java)
+                        callback!!.onSuccess(list)
+                        break
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error al traer los favoritos desde fire", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Fallo al traer de firestore los datos", exception)
+                }
+        } else {
+            val list = listOf<Serie>()
+            callback?.onSuccess(list)
+        }
+    }
+
+    fun getSeriesFav(callback: Callback<List<Serie>>?) {
+        if (!UserSingleton.getInstance().seriesFav.isNullOrEmpty()) {
+            db.collection(SERIES_COLLECTION_NAME)
+                .whereIn("idSerie", UserSingleton.getInstance().seriesFav!!.toList())
+                .orderBy("day", Query.Direction.DESCENDING)
+                .orderBy("hour", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (doc in result) {
+                        val list = result.toObjects(Serie::class.java)
+                        callback!!.onSuccess(list)
+                        break
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error al traer los favoritos desde fire", exception)
+                }
+        } else {
+            val list = listOf<Serie>()
+            callback?.onSuccess(list)
+        }
     }
 
     fun addSerie(serie: Serie) {
@@ -93,7 +133,7 @@ class SeriesServices {
             }
 
         db.collection(USER_COLLECTION_NAME).document(userUID!!)
-            .update("photosUploaded", UserSingleton.getInstance().photosUploaded)
+            .update("photosUploaded", FieldValue.increment(1))
     }
 
     fun addUser(nombre: String, uid: String) {
@@ -120,9 +160,28 @@ class SeriesServices {
                 callback!!.onSuccess(userData)
             }
             .addOnFailureListener { exception ->
-                Log.w(TAG, "Error al traer usuario", exception)
-                callback!!.onFailed(exception)
+                Log.w(TAG, "Error al traerDataUser")
             }
+    }
+
+    fun getDataFollow(callback: Callback<List<User>>?) {
+        if (!UserSingleton.getInstance().follow.isNullOrEmpty()) {
+            db.collection(USER_COLLECTION_NAME)
+                .whereIn("userId", UserSingleton.getInstance().follow!!.toList())
+                .get()
+                .addOnSuccessListener { result ->
+                    Log.d(TAG, "Traido correctamente")
+                    val userData = result.toObjects(User::class.java)
+                    callback?.onSuccess(userData)
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error al traer usuario", exception)
+                    callback?.onFailed(exception)
+                }
+        } else {
+            val list = listOf<User>()
+            callback?.onSuccess(list)
+        }
     }
 
     fun getSearchUser(ref: String, callback: Callback<List<User>>?) {
@@ -156,11 +215,11 @@ class SeriesServices {
     }
 
     fun listenForUpdates(listener: RealtimeDataListener<List<Serie>>, userID: String = userUID!!) {
-        val seriesReference = db.collection(SERIES_COLLECTION_NAME)
+        val ref = db.collection(SERIES_COLLECTION_NAME)
             .whereEqualTo("userId", userID)
             .orderBy("day", Query.Direction.DESCENDING)
             .orderBy("hour", Query.Direction.DESCENDING)
-        seriesReference.addSnapshotListener { snapshot, error ->
+        ref.addSnapshotListener { snapshot, error ->
             error?.let {
                 listener.onError(it)
             }
@@ -188,7 +247,6 @@ class SeriesServices {
             }
         }
     }
-
 
     fun listenForUpdatesUser(listener: RealtimeDataListener<User>) {
         val userReference = db.collection(USER_COLLECTION_NAME).document(userUID!!)
@@ -245,7 +303,7 @@ class SeriesServices {
         }
 
         db.collection(USER_COLLECTION_NAME).document(userUID!!)
-            .update("photosUploaded", UserSingleton.getInstance().photosUploaded)
+            .update("photosUploaded", FieldValue.increment(-1))
     }
 
     fun updateFollow(friend: User, isFollow: Boolean) {
@@ -256,36 +314,38 @@ class SeriesServices {
             UserSingleton.getInstance().follow?.add(friend.userId)
 
             db.collection(USER_COLLECTION_NAME).document(userUID!!)
-                .update("follow", UserSingleton.getInstance().follow)
+                .update("follow", FieldValue.arrayUnion(friend.userId))
 
             db.collection(USER_COLLECTION_NAME).document(friend.userId)
-                .update("followers", friend.follow)
+                .update("followers", FieldValue.arrayUnion(userUID))
         } else {
             // dejar de seguir
             friend.follow?.remove(UserSingleton.getInstance().userId)
             UserSingleton.getInstance().follow?.remove(friend.userId)
 
             db.collection(USER_COLLECTION_NAME).document(userUID!!)
-                .update("follow", UserSingleton.getInstance().follow)
+                .update("follow", FieldValue.arrayRemove(friend.userId))
 
             db.collection(USER_COLLECTION_NAME).document(friend.userId)
-                .update("followers", friend.follow)
+                .update("followers", FieldValue.arrayRemove(userUID))
         }
     }
 
     fun updateFavorite(idSerie: String, isFav: Boolean) {
-        if (isFav) {
-            // Esta agregado a favs, quiere quitarlo
-            UserSingleton.getInstance().seriesFav.remove(idSerie)
-            db.collection(USER_COLLECTION_NAME).document(userUID!!)
-                .update("seriesFav", UserSingleton.getInstance().seriesFav)
-                .addOnFailureListener { Log.w(TAG, "Error al quitar de fav", it) }
-        } else {
-            // No estaba agregado a fav, quiere agregarlo
-            UserSingleton.getInstance().seriesFav.add(idSerie)
-            db.collection(USER_COLLECTION_NAME).document(userUID!!)
-                .update("seriesFav", UserSingleton.getInstance().seriesFav)
-                .addOnFailureListener { Log.w(TAG, "Error al tratar de agregar a fav", it) }
+        if (UserSingleton.getInstance().seriesFav != null) {
+            if (isFav) {
+                // Esta agregado a favs, quiere quitarlo
+                UserSingleton.getInstance().seriesFav!!.remove(idSerie)
+                db.collection(USER_COLLECTION_NAME).document(userUID!!)
+                    .update("seriesFav", UserSingleton.getInstance().seriesFav)
+                    .addOnFailureListener { Log.w(TAG, "Error al quitar de fav", it) }
+            } else {
+                // No estaba agregado a fav, quiere agregarlo
+                UserSingleton.getInstance().seriesFav!!.add(idSerie)
+                db.collection(USER_COLLECTION_NAME).document(userUID!!)
+                    .update("seriesFav", UserSingleton.getInstance().seriesFav)
+                    .addOnFailureListener { Log.w(TAG, "Error al tratar de agregar a fav", it) }
+            }
         }
     }
 

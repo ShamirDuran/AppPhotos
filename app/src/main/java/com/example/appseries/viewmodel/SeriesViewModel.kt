@@ -1,7 +1,6 @@
 package com.example.appseries.viewmodel
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +8,7 @@ import com.example.appseries.adapter.RealtimeDataListener
 import com.example.appseries.model.Serie
 import com.example.appseries.network.Callback
 import com.example.appseries.network.SeriesServices
-import kotlinx.android.synthetic.main.loading_screen.*
 import java.lang.Exception
-import java.time.format.DateTimeFormatter
 
 const val TAG = "SerieViewModel"
 
@@ -25,7 +22,7 @@ class SeriesViewModel : ViewModel() {
     }
 
     private fun getSeries() {
-        db.getSeries(object : Callback<List<Serie>> {
+        db.getMySeries(object : Callback<List<Serie>> {
             override fun onSuccess(result: List<Serie>?) {
                 if (result != null) {
                     setListSerie(result)

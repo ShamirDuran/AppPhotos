@@ -17,6 +17,7 @@ class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAda
     private val listSeries = ArrayList<Serie>()
     private val listUser = ArrayList<User>()
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
@@ -31,7 +32,7 @@ class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAda
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val serie = listSeries[position]
 
-        listUser.forEach { user ->
+        for (user in listUser) {
             if (serie.userId == user.userId) {
                 holder.username.text = user.nombre
                 if (user.photo != "") Picasso.get().load(user.photo).into(holder.photoPerfil)
@@ -60,7 +61,6 @@ class HomeAdapter(val postListener: PostListener) : RecyclerView.Adapter<HomeAda
         this.listUser.clear()
         this.listUser.addAll(data)
         notifyDataSetChanged()
-
     }
 
     fun updateListSeries(data: List<Serie>) {

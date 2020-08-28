@@ -12,7 +12,7 @@ class UserSingleton {
     var follow: ArrayList<String>? = ArrayList()
     var followers: ArrayList<String>? = ArrayList()
     var photosUploaded: Int = 0
-    var seriesFav:ArrayList<String> = ArrayList()
+    var seriesFav:ArrayList<String>? = ArrayList()
 
     companion object {
         private var instance: UserSingleton? = null
