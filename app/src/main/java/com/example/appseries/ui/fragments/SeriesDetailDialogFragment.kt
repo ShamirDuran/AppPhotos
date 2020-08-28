@@ -193,6 +193,8 @@ class SeriesDetailDialogFragment() : DialogFragment(), CommentListener {
             }
 
         })
+
+
     }
 
     private fun changeGUI(serie: Serie) {

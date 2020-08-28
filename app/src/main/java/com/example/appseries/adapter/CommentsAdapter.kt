@@ -39,9 +39,18 @@ class CommentsAdapter(val commentListener: CommentListener) :
         val comment: Comment = listComments[position]
 
         try {
-            val user: User = listUser[position]
-            holder.username.text = user.nombre
-            if (user.photo!="") Picasso.get().load(user.photo).into(holder.photoUserComment)
+            for (user in listUser) {
+                if (user.userId == comment.user_id) {
+                    holder.username.text = user.nombre
+
+                    if (user.photo != "") {
+                        Picasso.get().load(user.photo).into(holder.photoUserComment)
+                    }
+                    break
+                }
+            }
+
+
         } catch (e: Exception) {
             Log.e("Error commentAdapter", "Error tamaño de listaUser", e)
         }
