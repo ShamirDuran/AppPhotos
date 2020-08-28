@@ -38,7 +38,7 @@ class SeriesServices {
                     callback?.onSuccess(list)
                 }
             }
-            .addOnFailureListener {exception ->
+            .addOnFailureListener { exception ->
                 callback?.onFailed(exception)
             }
     }
@@ -155,9 +155,11 @@ class SeriesServices {
         db.collection(USER_COLLECTION_NAME).document(userID)
             .get()
             .addOnSuccessListener { result ->
-                Log.d(TAG, "Traido correctamente")
-                val userData: User = result.toObject(User::class.java)!!
-                callback!!.onSuccess(userData)
+                if (result != null) {
+                    Log.d(TAG, "Traido correctamente")
+                    val userData: User = result.toObject(User::class.java)!!
+                    callback!!.onSuccess(userData)
+                }
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error al traerDataUser")
