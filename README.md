@@ -14,7 +14,9 @@ Para mostrar las imágenes se utilizó **Picasso**
 
 <br>
 
-Para la persistencia de datos **Cloud Firestore** para los datos y **Cloud Storage** para las fotos.
+Para la persistencia de datos 
+* **Cloud Firestore** para los datos 
+* **Cloud Storage** para las fotos.
 
 ## Vistas
 
