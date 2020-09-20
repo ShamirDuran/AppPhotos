@@ -23,14 +23,17 @@ Para la persistencia de datos **Cloud Firestore** para los datos y **Cloud Stora
   
 Para el registro de usuarios se utilizó la autenticación mediante correo/contraseña que ofrece Firebase, por lo que al registrarse, se envía un correo al usuario 
 para que confirme el registro.
+
 ![image](https://user-images.githubusercontent.com/40668021/93691332-81a96200-faa9-11ea-90fa-f307c33ed131.png "Correo de verificación")
 
 En la vista de inicio se muestran las fotos que recientemente han subido los usuarios que sigamos. En esta vista también encontramos un floating button 
 que permite subir nuevas fotos.
+
  ![image](https://user-images.githubusercontent.com/40668021/93691357-bf0def80-faa9-11ea-9652-13a55d61d248.png "Vista de inicio")
 
 En esta vista es donde se realiza la búsqueda de las personas que queremos seguir. Escribimos un nombre, presionamos el icono de buscar en nuestro teclado
 y se mostraran los usuarios encontrados con ese nombre. Al seleccionar un usuario de los encontrados se abre su perfil, donde podemos ver sus fotos, inspeccionar cada una de ellas o agregarlas a mis favoritos.
+
 ![image](https://user-images.githubusercontent.com/40668021/93691413-5410e880-faaa-11ea-9332-9dfb4b7fcf8b.png)
 
 Acá se mostrarán todas las fotos que tengamos como favoritas. El estado de favorito se puede modificar haciendo tap en el icono de corazón de cada foto.
@@ -38,9 +41,11 @@ Acá se mostrarán todas las fotos que tengamos como favoritas. El estado de fav
 ![image](https://user-images.githubusercontent.com/40668021/93691434-be298d80-faaa-11ea-9016-8d92290359e9.png)
 
 Nuestro perfil, vista en la que estarán todas las fotos que hayamos subido hasta el momento. Al seleccionar una foto de estas, se muestran el icono para eliminar la foto (parte superior) y el de editar (derecha del título).
+
 ![image](https://user-images.githubusercontent.com/40668021/93691473-50319600-faab-11ea-8f24-9ac827eec226.png)
 
 Cuando inspeccionamos una imagen, se muestra el usuario que la subió, el título, la descripción si posee y los comentarios que posee.
+
 ![image](https://user-images.githubusercontent.com/40668021/93691479-5f184880-faab-11ea-8cba-4ba6fd1d2db4.png)
 
 
