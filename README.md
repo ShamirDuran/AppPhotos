@@ -1,5 +1,5 @@
 # AppPhotos
-AppSeries es una aplicación móvil que desarrolle para poner en practica lo que he aprendido sobre Kotlin y Firebase. El objetivo de la aplicación es poder compartir nuestros viajes, momentos, series o cualquier foto que nos guste.
+AppPhotos es una aplicación móvil que desarrolle para poner en practica lo que he aprendido sobre Kotlin y Firebase. El objetivo de la aplicación es poder compartir nuestros viajes, momentos, series o cualquier foto que nos guste.
 
 ## Desarrollo
 En la aplicación se utilizaron algunas de las librerías que ofrece Android Jetpack
